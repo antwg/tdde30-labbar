@@ -25,4 +25,3 @@ public class Exercise6
 
     }
 }
-/* Uppgift Påbörja avlusning */

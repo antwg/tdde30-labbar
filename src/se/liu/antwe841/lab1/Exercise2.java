@@ -37,9 +37,5 @@ public class Exercise2
 	    default:
 		System.out.println("Enter for of while");
 	}
-
-	/*System.out.println(sumWhile(min, max));*/
-
     }
-
 }

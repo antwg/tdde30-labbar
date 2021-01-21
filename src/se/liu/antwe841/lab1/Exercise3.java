@@ -4,7 +4,6 @@ import javax.swing.*;
 
 public class Exercise3
 {
-
     private final static int TABELL = 5;
 
     public static void main(String[] args) {

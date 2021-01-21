@@ -3,7 +3,6 @@ package se.liu.antwe841.lab1;
 public class Exercise5
 {
     public static void main(String[] args) {
-	/*System.out.println(factorial(16));*/
 	for (int i = 0; i < 11; i++) {
 	    System.out.println(i + "-fakultet: " + factorial(i));
 	}
@@ -16,13 +15,13 @@ public class Exercise5
      *
      * @return f!
      */
+
     private static int factorial(int f) {
 	if (f == 0) {
 	    return 1;
 	}
-
     	int result = 1;
-  	for(int i = 1; i <= f; i++)
+  	for (int i = 1; i <= f; i++)
   	    result *= i;
 
   	return result;
