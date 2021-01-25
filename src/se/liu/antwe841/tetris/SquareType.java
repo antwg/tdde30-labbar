@@ -17,5 +17,6 @@ public enum SquareType
 	    System.out.println(currentBlock);
 	}
     }
+
 }
 
