@@ -14,5 +14,6 @@ public class Exercise3
 	    System.out.println(i + "*" + tabell + "=" + i * tabell);
 	    i++;
 	}
+
     }
 }

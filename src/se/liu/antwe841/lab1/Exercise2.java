@@ -1,7 +1,7 @@
 package se.liu.antwe841.lab1;
 
 import javax.swing.*;
-import java.sql.SQLOutput;
+
 
 public class Exercise2
 {

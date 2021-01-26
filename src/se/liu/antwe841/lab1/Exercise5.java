@@ -3,14 +3,14 @@ package se.liu.antwe841.lab1;
 public class Exercise5
 {
     public static void main(String[] args) {
-	for (int i = 0; i < 11; i++) {
+	for (int i = 0; i < 10; i++) {
 	    System.out.println(i + "-fakultet: " + factorial(i));
 	}
     }
 
     /**
      * Calculates f! given f.
-     *
+     *SquareType.
      * @param f
      *
      * @return f!

@@ -7,7 +7,7 @@ public class Exercise9
     public static double findRoot(double x){
         double guess = x;
 	for (int i = 0; i < 10; i++) {
-	    guess = guess - (guess*guess-x) / (2*guess);
+	    guess -= (guess * guess - x) / (2 * guess);
 	}
 	return guess;
     }

@@ -19,7 +19,7 @@ public class Exercise6
 
 	for (int i = 2; i < 100; i++) {
 	    if (isPrime(i)){
-		System.out.println(i);;
+		System.out.println(i);
 	    }
 	}
 

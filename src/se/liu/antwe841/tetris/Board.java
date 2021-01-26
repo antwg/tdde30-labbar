@@ -11,7 +11,7 @@ public class Board
     private final static Random RND = new Random();
 
     public int getWidth() {
-	return width;
+        return width;
     }
 
     public int getHeight() {
