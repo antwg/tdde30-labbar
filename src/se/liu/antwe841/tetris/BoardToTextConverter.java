@@ -16,7 +16,7 @@ public class BoardToTextConverter
 	StringBuilder builder = new StringBuilder();
 	for (int row = 0; row < board.getHeight(); row++) {
 	    for (int col = 0; col < board.getWidth(); col++) {
-	        switch (board.getSquare(col, row)) {
+	        switch (board.getSquareAt(col, row)) {
 		    case EMPTY:
 			builder.append("-");
 			break;

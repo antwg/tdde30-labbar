@@ -15,19 +15,19 @@ public class TetrominoMaker
     public Poly getPoly(int n) {
         switch (n) {
 	    case 0:
-	        return new Poly(getI());
+	        return new Poly(getI(), SquareType.I);
 	    case 1:
-		return new Poly(getO());
+		return new Poly(getO(), SquareType.O);
 	    case 2:
-		return new Poly(getT());
+		return new Poly(getT(), SquareType.T);
 	    case 3:
-		return new Poly(getS());
+		return new Poly(getS(), SquareType.S);
 	    case 4:
-		return new Poly(getZ());
+		return new Poly(getZ(), SquareType.Z);
 	    case 5:
-		return new Poly(getJ());
+		return new Poly(getJ(), SquareType.J);
 	    case 6:
-		return new Poly(getL());
+		return new Poly(getL(), SquareType.L);
 	    default:
 		throw new IllegalArgumentException("Invalid index: " + n);
 	}
@@ -88,6 +88,4 @@ public class TetrominoMaker
 		 {SquareType.EMPTY, SquareType.EMPTY, SquareType.EMPTY}};
 	return l;
     }
-
-
 }
