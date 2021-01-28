@@ -9,6 +9,9 @@ public class BoardTester
 	    Board rndBoard = testBoard.replaceWithRandomBoard(testBoard);
 	    BoardToTextConverter boardInText = new BoardToTextConverter(rndBoard);
 	    System.out.println(boardInText.convertToText());
+
+	    /*BoardToTextConverter boardInText = new BoardToTextConverter(testBoard);
+	    System.out.println(boardInText.convertToText());*/
 	}
     }
 }

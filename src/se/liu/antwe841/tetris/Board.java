@@ -37,13 +37,13 @@ public class Board
 
     public SquareType getSquareAt(int x, int y) {
         /*If in falling*/
-        if (inFalling(falling, x, y)){
-            if (squares[y][x] == SquareType.EMPTY){
-                return squares[y][x];
-	    }
+        if (inFalling(x, y)){
+            if (falling.getPolyArray()[y - getFallingY()][x - getFallingX()] == SquareType.EMPTY){
+            	return squares[y][x];
+            }
             else {
-                return falling.getType();
-	    }
+                return falling.getPolyArray()[y - getFallingY()][x - getFallingX()];
+            }
 	}
         /*If not in falling*/
         else {
@@ -55,6 +55,10 @@ public class Board
 	this.squares = new SquareType[height][width];
 	this.width = width;
 	this.height = height;
+	TetrominoMaker maker = new TetrominoMaker();
+	this.falling = maker.getPoly(2);
+	this.fallingX = 0;
+	this.fallingY =0;
 
 	/*Sets all squares to EMPTY*/
 
@@ -76,15 +80,21 @@ public class Board
 	return board;
     }
 
-    public boolean inFalling(Poly falling, int x, int y){
+    public boolean inFalling(int x, int y){
         List<Integer> xSpan = new ArrayList<>();
 	List<Integer> ySpan = new ArrayList<>();
-	for (int xCoord = getFallingX(); xCoord < falling.getWidth(); xCoord++) {
+
+	/*Find valid x-coordinates*/
+	for (int xCoord = getFallingX(); xCoord < getFallingX() + falling.getWidth(); xCoord++) {
 	    xSpan.add(xCoord);
 	}
-	for (int yCoord = getFallingY(); yCoord < falling.getWidth(); yCoord++) {
+
+	/*Find valid y-coordinates*/
+	for (int yCoord = getFallingY(); yCoord < getFallingY() + falling.getWidth(); yCoord++) {
 	    ySpan.add(yCoord);
 	}
+
+	/*If both match given x and y values, return true*/
 	if (xSpan.contains(x) && ySpan.contains(y)){
 	    return true;
 	}
@@ -96,12 +106,14 @@ public class Board
 	Board myBoard = new Board(10, 20);
 	for (int y = 0; y < myBoard.getHeight(); y++) {
 	    for (int x = 0; x < myBoard.getWidth(); x++) {
-		/*System.out.println(myBoard.getSquareAt(x,y));*/
+		System.out.println(myBoard.getSquareAt(x,y));
 	    }
 	}
-	TetrominoMaker maker = new TetrominoMaker();
-	Poly falling = maker.getPoly(2);
-	/*myBoard.getSquareAt(1,1);*/
+	/*System.out.println(myBoard.inFalling(6,6));
+	System.out.println(myBoard.getFallingX());
+	System.out.println(myBoard.getFallingY());
+	System.out.println(myBoard.getSquareAt(1,1));*/
+
     }
 
 }
