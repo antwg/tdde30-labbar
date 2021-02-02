@@ -1,7 +1,5 @@
 package se.liu.antwe841.tetris;
 
-
-import java.sql.Array;
 import java.util.Random;
 
 public enum SquareType

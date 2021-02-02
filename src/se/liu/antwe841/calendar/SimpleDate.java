@@ -1,7 +1,5 @@
 package se.liu.antwe841.calendar;
 
-import com.google.gson.internal.bind.util.ISO8601Utils;
-
 public class SimpleDate
 {
     private int year;
