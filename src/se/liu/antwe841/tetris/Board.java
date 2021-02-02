@@ -37,7 +37,7 @@ public class Board
 
     public SquareType getSquareAt(int x, int y) {
         /*If in falling*/
-        if (inFalling(x, y)){
+        if (isInFalling(x, y)){
             if (falling.getPolyArray()[y - getFallingY()][x - getFallingX()] == SquareType.EMPTY){
             	return squares[y][x];
             }
@@ -56,7 +56,7 @@ public class Board
 	this.width = width;
 	this.height = height;
 	TetrominoMaker maker = new TetrominoMaker();
-	this.falling = maker.getPoly(2);
+	this.falling = maker.getPoly(2);  /*temp*/
 	this.fallingX = 0;
 	this.fallingY =0;
 
@@ -80,7 +80,7 @@ public class Board
 	return board;
     }
 
-    public boolean inFalling(int x, int y){
+    public boolean isInFalling(int x, int y){
         List<Integer> xSpan = new ArrayList<>();
 	List<Integer> ySpan = new ArrayList<>();
 
