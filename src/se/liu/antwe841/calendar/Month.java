@@ -61,8 +61,7 @@ public class Month
     }
     public static int getMonthDays(String name){
 	switch (name){
-	    case "january":
-	    case "march":
+	    case "january","march": /*fixa för alla*/
 	    case "may":
 	    case "july":
 	    case "august":

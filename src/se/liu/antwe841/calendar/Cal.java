@@ -42,10 +42,10 @@ public class Cal
         if (startHour > 23 || startHour < 0 || endHour > 23 || endHour < 0) {
 	    throw new IllegalArgumentException("Hour argument invalid");
 	}
-        if (startMinute > 60 || startMinute < 0 || endMinute > 60 || endMinute < 0) {
+        if (startMinute > 59 || startMinute < 0 || endMinute > 59 || endMinute < 0) {
 	    throw new IllegalArgumentException("Minute argument invalid");
 	}
-        switch (month) {
+        switch (month) { /*get month number*/
 	    case "january":
 	    case "february":
 	    case "march":

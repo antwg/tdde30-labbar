@@ -58,7 +58,7 @@ public class Board
 	TetrominoMaker maker = new TetrominoMaker();
 	this.falling = maker.getPoly(2);  /*temp*/
 	this.fallingX = 0;
-	this.fallingY =0;
+	this.fallingY = 0;
 
 	/*Sets all squares to EMPTY*/
 
@@ -69,7 +69,7 @@ public class Board
 	}
     }
 
-    public Board replaceWithRandomBoard(Board board) {
+    public Board replaceWithRandomBoard(Board board) { /*inte returna nått*/
 	SquareType[] blockArray = SquareType.values();
 	for (int col = 0; col < width; col++) {
 	    for (int row = 0; row < height; row++) {
@@ -80,7 +80,7 @@ public class Board
 	return board;
     }
 
-    public boolean isInFalling(int x, int y){
+    public boolean isInFalling(int x, int y){ /*TODO fixa*/
         List<Integer> xSpan = new ArrayList<>();
 	List<Integer> ySpan = new ArrayList<>();
 

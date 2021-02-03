@@ -42,10 +42,11 @@ public class BoardToTextConverter
 			builder.append("L");
 			break;
 		}
-		if (col == board.getWidth() - 1){
-		    builder.append("\n");
-		}
+
+
+
 	    }
+	    builder.append("\n");
 	}
     	str = builder.toString();
 	return str;

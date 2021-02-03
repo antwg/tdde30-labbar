@@ -16,7 +16,7 @@ public class Poly
 
     public SquareType[][] getPolyArray() {
         return polyArray;
-    }
+    } /*ändra till specifikt värde*/
 
     public int getWidth() {
 	return width;
