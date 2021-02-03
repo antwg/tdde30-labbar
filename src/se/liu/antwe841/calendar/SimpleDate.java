@@ -1,10 +1,9 @@
 package se.liu.antwe841.calendar;
 
-public class SimpleDate
-{
+public class SimpleDate {
     private int year;
-    private Month month;
     private int day;
+    private Month month;
 
     public SimpleDate(final int year, final Month month, final int day) {
 	this.year = year;

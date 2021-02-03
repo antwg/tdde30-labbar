@@ -1,7 +1,6 @@
 package se.liu.antwe841.calendar;
 
-public class Appointment
-{
+public class Appointment {
     private String subject;
     private SimpleDate date;
     private TimeSpan timeSpan;

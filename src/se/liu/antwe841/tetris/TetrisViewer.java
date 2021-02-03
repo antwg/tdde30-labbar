@@ -3,12 +3,10 @@ package se.liu.antwe841.tetris;
 import javax.swing.*;
 import java.awt.*;
 
-public class TetrisViewer
-{
+public class TetrisViewer {
     private JFrame frame;
     private JTextArea textArea;
     private String text;
-
 
     public TetrisViewer(Board board) {
 	BoardToTextConverter textConverter = new BoardToTextConverter(board);

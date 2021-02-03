@@ -1,7 +1,6 @@
 package se.liu.antwe841.calendar;
 
-public class Month
-{
+public class Month {
     private String name;
     private int number;
     private int days;

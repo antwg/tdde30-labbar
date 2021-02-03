@@ -1,7 +1,6 @@
 package se.liu.antwe841.tetris;
 
-public class BoardToTextConverter
-{
+public class BoardToTextConverter {
     private String str;
 
     public BoardToTextConverter(final Board board) {
@@ -42,9 +41,6 @@ public class BoardToTextConverter
 			builder.append("L");
 			break;
 		}
-
-
-
 	    }
 	    builder.append("\n");
 	}
