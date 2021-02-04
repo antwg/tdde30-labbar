@@ -14,9 +14,6 @@ public class Board {
     private final static Random RND = new Random();
     private Poly falling;
 
-    private int polyNr = 2;
-
-
     public Poly getFalling() {
 	return falling;
     }
@@ -38,6 +35,7 @@ public class Board {
 	this.width = width;
 	this.height = height;
 	TetrominoMaker maker = new TetrominoMaker();
+	int polyNr = 2;
 	this.falling = maker.getPoly(polyNr);  /*temp*/
 	this.fallingX = 0;
 	this.fallingY = 0;
