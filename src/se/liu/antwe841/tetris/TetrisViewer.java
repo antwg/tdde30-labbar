@@ -4,18 +4,18 @@ import javax.swing.*;
 import java.awt.*;
 
 public class TetrisViewer {
-    private JFrame frame;
-    private JTextArea textArea;
-    private String text;
+    Board board;
+
 
     public TetrisViewer(Board board) {
-	BoardToTextConverter textConverter = new BoardToTextConverter(board);
-	this.text = textConverter.convertToText();
-	this.frame = new JFrame("Tetris");
-	this.textArea = new JTextArea(board.getHeight(), board.getWidth());
+	this.board = board;
     }
 
     public void show(){
+	BoardToTextConverter textConverter = new BoardToTextConverter(board);
+	String text = textConverter.convertToText();
+	JFrame frame = new JFrame("Tetris");
+	JTextArea textArea = new JTextArea(board.getHeight(), board.getWidth());
 	frame.setLayout(new BorderLayout());
 	textArea.setFont(new Font("Monospaced", Font.PLAIN, 20));
 	textArea.setText(text);

@@ -6,6 +6,13 @@ public class Poly {
     private int width;
     private int height;
 
+    public Poly(final SquareType[][] polyArray, SquareType type) {
+	this.polyArray = polyArray;
+	this.width = polyArray[0].length;
+	this.height = polyArray.length;
+	this.type = type;
+    }
+
     public SquareType getSquare(int x, int y) {return polyArray[y][x]; }
 
     public int getWidth() {
@@ -20,10 +27,4 @@ public class Poly {
 	return type;
     }
 
-    public Poly(final SquareType[][] polyArray, SquareType type) {
-	this.polyArray = polyArray;
-	this.width = polyArray[0].length;
-	this.height = polyArray.length;
-	this.type = type;
-    }
 }

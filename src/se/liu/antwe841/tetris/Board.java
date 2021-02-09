@@ -14,22 +14,6 @@ public class Board {
     private final static Random RND = new Random();
     private Poly falling;
 
-    public Poly getFalling() {
-	return falling;
-    }
-
-    public int getFallingX() {return fallingX; }
-
-    public int getFallingY() {
-	return fallingY;
-    }
-
-    public int getWidth() {return width; }
-
-    public int getHeight() {
-	return height;
-    }
-
     public Board(final int width, final int height) {
 	this.squares = new SquareType[height][width];
 	this.width = width;
@@ -49,9 +33,25 @@ public class Board {
 	}
     }
 
+
+    public Poly getFalling() {
+	return falling;
+    }
+
+    public int getFallingX() {return fallingX; }
+
+    public int getFallingY() {
+	return fallingY;
+    }
+
+    public int getWidth() {return width; }
+
+    public int getHeight() {
+	return height;
+    }
+
     public SquareType getSquareAt(int x, int y) {
         if (isInFalling(x, y)){
-	    System.out.println("infalling");
 	    /*If part of falling is empty*/
             if (falling.getSquare(x - getFallingX(),y - getFallingY()) == SquareType.EMPTY){
             	return squares[y][x];
@@ -75,7 +75,7 @@ public class Board {
 	}
     }
 
-    public boolean isInFalling(int x, int y){
+    private boolean isInFalling(int x, int y){
         if (x < getFallingX() || x >= getFallingX() + falling.getWidth() ||
 	y < getFallingY() || y >= getFallingY() + falling.getHeight()) {
             return false;
