@@ -4,8 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class TetrisViewer {
-    Board board;
-
+    private Board board;
 
     public TetrisViewer(Board board) {
 	this.board = board;
