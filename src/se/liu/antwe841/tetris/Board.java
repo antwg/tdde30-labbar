@@ -19,7 +19,7 @@ public class Board {
 	this.width = width;
 	this.height = height;
 	TetrominoMaker maker = new TetrominoMaker();
-	int polyNr = 2;
+	final int polyNr = 2;
 	this.falling = maker.getPoly(polyNr);  /*temp*/
 	this.fallingX = 0;
 	this.fallingY = 0;

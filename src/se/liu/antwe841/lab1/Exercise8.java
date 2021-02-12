@@ -10,7 +10,7 @@ public class Exercise8
     }
 
     public static void main(String[] args) {
-        while(true){
+        while(true){ /*condition true enligt uppgiften*/
             if (askUser("Quit?") && askUser("Really?")) {
                 break;
 	    }

@@ -28,8 +28,8 @@ public class SimpleDate {
     }
 
     public static void main(String[] args) {
-        Month apr = new Month("april");
-	SimpleDate test = new SimpleDate(2000, apr, 23);
+        Month april = new Month("april");
+	SimpleDate test = new SimpleDate(2000, april, 23);
 	System.out.println(test);
 
     }
