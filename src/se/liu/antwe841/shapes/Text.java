@@ -20,8 +20,11 @@ public class Text extends AbstractShape{
 	return text;
     }
 
-    @Override public void draw() {
-	System.out.println("Ritar: " + this);
+    @Override public void draw(final Graphics g) {
+        /*System.out.println("Ritar: " + this);*/
+	g.setColor(color);
+	g.setFont(new Font("serif", Font.PLAIN, size));
+	g.drawString(text, x, y);
     }
 
     @Override public String toString() {

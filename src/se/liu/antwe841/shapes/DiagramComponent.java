@@ -18,8 +18,17 @@ public class DiagramComponent extends JComponent
     }
 
     @Override protected void paintComponent(final Graphics g) {
-	super.paintComponent(g);
+	/*super.paintComponent(g);*/
+	for (Shape shape:shapes) {
+	    shape.draw(g);
+	}
+    }
 
-
+    public static void main(String[] args) {
+	DiagramComponent com = new DiagramComponent();
+	System.out.println(com);
+	Circle c1 = new Circle(1, 1, 1, Color.BLACK);
+	com.addShape(c1);
+	System.out.println(com);
     }
 }

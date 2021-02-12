@@ -34,7 +34,7 @@ public class ShapeTest
 	shapes.add(t3);
 
 	for (Shape shape : shapes) {
-	    shape.draw();
+	    /*shape.draw();*/
 	}
     }
 }

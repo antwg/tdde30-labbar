@@ -1,6 +1,6 @@
 package se.liu.antwe841.shapes;
 
-import java.awt.Color;
+import java.awt.*;
 
 public class Circle extends AbstractShape{
     private int radius;
@@ -17,8 +17,12 @@ public class Circle extends AbstractShape{
         return radius;
     }
 
-    @Override public void draw() {
-        System.out.println("Ritar: " + this);
+    @Override public void draw(final Graphics g) {
+        /*System.out.println("Ritar: " + this);*/
+        int width = radius;
+        int height = radius;
+        g.setColor(color);
+        g.drawOval(x, y, width, height);
     }
 
     @Override public String toString() {

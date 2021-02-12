@@ -1,6 +1,6 @@
 package se.liu.antwe841.shapes;
 
-import java.awt.Color;
+import java.awt.*;
 
 public class Rectangle extends AbstractShape{
     private int width;
@@ -20,8 +20,11 @@ public class Rectangle extends AbstractShape{
 	return height;
     }
 
-    @Override public void draw() {
-	System.out.println("Ritar: " + this);
+    @Override public void draw(final Graphics g) {
+        /*System.out.println("Ritar: " + this);*/
+	g.setColor(color);
+	g.drawRect(x, y, width, height);
+
     }
 
     @Override public String toString() {
