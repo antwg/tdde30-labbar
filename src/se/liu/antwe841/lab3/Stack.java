@@ -2,10 +2,6 @@ package se.liu.antwe841.lab3;
 
 import se.liu.antwe841.lab1.Person;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 public class Stack extends ListManipulator {
 
     public void push(Person person){

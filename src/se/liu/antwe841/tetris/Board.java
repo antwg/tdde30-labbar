@@ -1,8 +1,5 @@
 package se.liu.antwe841.tetris;
 
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class Board {
@@ -19,8 +16,8 @@ public class Board {
 	this.width = width;
 	this.height = height;
 	TetrominoMaker maker = new TetrominoMaker();
-	final int polyNr = 2;
-	this.falling = maker.getPoly(polyNr);  /*temp*/
+	final int polyNumber = 2;
+	this.falling = maker.getPoly(polyNumber);  /*temp*/
 	this.fallingX = 0;
 	this.fallingY = 0;
 
