@@ -5,15 +5,16 @@ import java.awt.*;
 
 public class TetrisViewer {
     private Board board;
+    private JFrame frame;
 
     public TetrisViewer(Board board) {
 	this.board = board;
+	this.frame = new JFrame("Tetris");
     }
 
     public void show(){
 	BoardToTextConverter textConverter = new BoardToTextConverter(board);
 	String text = textConverter.convertToText();
-	JFrame frame = new JFrame("Tetris");
 	JTextArea textArea = new JTextArea(board.getHeight(), board.getWidth());
 	frame.setLayout(new BorderLayout());
 	textArea.setFont(new Font("Monospaced", Font.PLAIN, 20));
