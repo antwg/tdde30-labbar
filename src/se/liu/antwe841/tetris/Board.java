@@ -1,5 +1,7 @@
 package se.liu.antwe841.tetris;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Board {
@@ -10,6 +12,7 @@ public class Board {
     private int fallingY;
     private final static Random RND = new Random();
     private Poly falling;
+    private List<BoardListener> boardListeners;
 
     public Board(final int width, final int height) {
 	this.squares = new SquareType[height][width];
@@ -20,6 +23,7 @@ public class Board {
 	this.falling = maker.getPoly(polyNumber);  /*temp*/
 	this.fallingX = 0;
 	this.fallingY = 0;
+	this.boardListeners = new ArrayList<>();
 
 	/*Sets all squares to EMPTY*/
 
@@ -62,6 +66,10 @@ public class Board {
 	}
     }
 
+    public void addBoardListener(BoardListener bl){
+        boardListeners.add(bl);
+    }
+
     public void replaceWithRandomBoard(Board board) {
 	SquareType[] blockArray = SquareType.values();
 	for (int col = 0; col < width; col++) {
@@ -69,6 +77,13 @@ public class Board {
 		SquareType currentRNDBlock = blockArray[RND.nextInt(blockArray.length)];
 	        squares[row][col] = currentRNDBlock;
 	    }
+	}
+	notifyListeners();
+    }
+
+    private void notifyListeners(){
+	for (BoardListener bl: boardListeners) {
+		bl.boardChanged();
 	}
     }
 

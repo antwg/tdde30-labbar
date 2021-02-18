@@ -9,14 +9,13 @@ public class BoardTester
     public static void main(String[] args) {
 	Board testBoard = new Board(10, 20);
 	TetrisViewer testViewer = new TetrisViewer(testBoard);
+	testBoard.addBoardListener(testViewer.getComp());
+
 
 	final Action doOneStep = new AbstractAction()
 	{
 	    @Override public void actionPerformed(final ActionEvent e) {
 	        testBoard.replaceWithRandomBoard(testBoard);
-		testViewer.show();
-		System.out.println("test");
-
 	    }
 	};
 
@@ -24,5 +23,6 @@ public class BoardTester
 	clockTimer.setCoalesce(true);
 	clockTimer.start();
 	testViewer.show();
+
     }
 }
