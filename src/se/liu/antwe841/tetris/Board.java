@@ -25,7 +25,7 @@ public class Board {
 	this.width = width;
 	this.height = height;
 	this.maker = new TetrominoMaker();
-	this.falling = maker.getPoly(RND.nextInt(6));
+	this.falling = maker.getPoly(RND.nextInt(maker.getNumberOfTypes()));
 	this.fallingX = (width + MARGIN)/ 2;
 	this.fallingY = MARGIN;
 	this.boardListeners = new ArrayList<>();
@@ -67,7 +67,7 @@ public class Board {
 
     public void setFalling(){
 	if (falling == null){
-	    falling = maker.getPoly(RND.nextInt(6));
+	    falling = maker.getPoly(RND.nextInt(maker.getNumberOfTypes()));
 	}
     }
 
@@ -87,7 +87,7 @@ public class Board {
         notifyListeners();
     }
 
-    private void hasCollision(){
+    private boolean hasCollision(){
 	//if (getSquareAt(fallingX - MARGIN, fallingY - MARGIN) != SquareType.EMPTY){
 	  //  System.out.println("not empty");
 	//}
@@ -97,6 +97,7 @@ public class Board {
 	//for (int x = 0; x < falling.getWidth(); x++) {
 
 	//}
+	return true;
     }
 
     public void addBoardListener(BoardListener bl){ boardListeners.add(bl); }

@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 
 public class TetrisViewer {
     private Board board;
-    private JFrame frame;
+    private JFrame frame = null;
     private TetrisComponent comp;
 
     public TetrisViewer(Board board) {
@@ -22,12 +22,12 @@ public class TetrisViewer {
 	this.frame = new JFrame("Tetris");
 	frame.setLayout(new BorderLayout());
 	frame.add(comp, BorderLayout.CENTER);
-	keyStrokeActions(frame.getRootPane());
+	makeKeyStrokeActions(frame.getRootPane());
 	frame.pack();
 	frame.setVisible(true);
     }
 
-    private void keyStrokeActions(JComponent pane){
+    private void makeKeyStrokeActions(JComponent pane){
 	final InputMap in = pane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
 	in.put(KeyStroke.getKeyStroke("LEFT"), "moveLeft");
 	in.put(KeyStroke.getKeyStroke("RIGHT"), "moveRight");

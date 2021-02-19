@@ -11,8 +11,8 @@ public class TetrisComponent extends JComponent implements BoardListener{
 
     private final static int SQUARE_SIZE = 30;
     private final static int MARGIN = 5;
-    private final static int WINDOW_WIDTH = 1000;
-    private final static int WINDOW_HEIGHT = 1000;
+    private final static int WINDOW_WIDTH = 350;
+    private final static int WINDOW_HEIGHT = 700;
 
     public TetrisComponent(final Board board) {
 	this.board = board;
