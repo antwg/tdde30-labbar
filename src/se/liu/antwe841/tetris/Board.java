@@ -61,7 +61,7 @@ public class Board {
     public void tick(){
 	setFalling();
 	moveFalling();
-	hasCollision();
+	//hasCollision();
 	notifyListeners();
     }
 
@@ -86,7 +86,7 @@ public class Board {
 	}
         notifyListeners();
     }
-
+/*
     private boolean hasCollision(){
 	//if (getSquareAt(fallingX - MARGIN, fallingY - MARGIN) != SquareType.EMPTY){
 	  //  System.out.println("not empty");
@@ -99,7 +99,7 @@ public class Board {
 	//}
 	return true;
     }
-
+*/
     public void addBoardListener(BoardListener bl){ boardListeners.add(bl); }
 
     public SquareType getSquareAt(int x, int y) {
