@@ -21,7 +21,6 @@ public class Rectangle extends AbstractShape{
     }
 
     @Override public void draw(final Graphics g) {
-        /*System.out.println("Ritar: " + this);*/
 	g.setColor(color);
 	g.drawRect(x, y, width, height);
 

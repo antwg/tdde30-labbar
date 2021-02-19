@@ -6,10 +6,13 @@ import java.util.EnumMap;
 
 public class TetrisComponent extends JComponent implements BoardListener{
     private Board board;
-    private final static EnumMap<SquareType, Color> SQUARE_COLORS = createColorMap();
-    private final static int SQUARE_SIZE = 40;
-    private final static int MARGIN = 5;
 
+    private final static EnumMap<SquareType, Color> SQUARE_COLORS = createColorMap();
+
+    private final static int SQUARE_SIZE = 30;
+    private final static int MARGIN = 5;
+    private final static int WINDOW_WIDTH = 1000;
+    private final static int WINDOW_HEIGHT = 1000;
 
     public TetrisComponent(final Board board) {
 	this.board = board;
@@ -19,23 +22,8 @@ public class TetrisComponent extends JComponent implements BoardListener{
 	repaint();
     }
 
-    public static EnumMap<SquareType, Color> createColorMap(){
-	EnumMap<SquareType, Color> map = new EnumMap<>(SquareType.class);
-
-	map.put(SquareType.EMPTY, Color.WHITE);
-	map.put(SquareType.I, Color.CYAN);
-	map.put(SquareType.O, Color.YELLOW);
-	map.put(SquareType.T, Color.MAGENTA);
-	map.put(SquareType.S, Color.GREEN);
-	map.put(SquareType.Z, Color.RED);
-	map.put(SquareType.J, Color.BLUE);
-	map.put(SquareType.L, Color.ORANGE);
-
-        return map;
-    }
-
     @Override public Dimension getPreferredSize() {
-	return new Dimension(800, 1200);
+	return new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT);
     }
 
     @Override protected void paintComponent(final Graphics g) {
@@ -50,6 +38,23 @@ public class TetrisComponent extends JComponent implements BoardListener{
 	    }
 	}
     }
+
+    public static EnumMap<SquareType, Color> createColorMap(){
+	EnumMap<SquareType, Color> map = new EnumMap<>(SquareType.class);
+
+	map.put(SquareType.EMPTY, Color.WHITE);
+	map.put(SquareType.I, Color.CYAN);
+	map.put(SquareType.O, Color.YELLOW);
+	map.put(SquareType.T, Color.MAGENTA);
+	map.put(SquareType.S, Color.GREEN);
+	map.put(SquareType.Z, Color.RED);
+	map.put(SquareType.J, Color.BLUE);
+	map.put(SquareType.L, Color.ORANGE);
+	map.put(SquareType.OUTSIDE, Color.BLACK);
+
+	return map;
+    }
+
 }
 
 

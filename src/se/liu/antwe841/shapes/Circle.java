@@ -18,7 +18,6 @@ public class Circle extends AbstractShape{
     }
 
     @Override public void draw(final Graphics g) {
-        /*System.out.println("Ritar: " + this);*/
         int width = radius;
         int height = radius;
         g.setColor(color);

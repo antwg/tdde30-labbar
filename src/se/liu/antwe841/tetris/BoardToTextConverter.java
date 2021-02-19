@@ -19,6 +19,9 @@ public class BoardToTextConverter {
 		    case EMPTY:
 			builder.append("-");
 			break;
+		    case OUTSIDE:
+			builder.append("X");
+			break;
 		    case I:
 			builder.append("I");
 			break;

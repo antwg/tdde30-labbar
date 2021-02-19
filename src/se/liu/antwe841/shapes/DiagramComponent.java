@@ -18,7 +18,7 @@ public class DiagramComponent extends JComponent
     }
 
     @Override protected void paintComponent(final Graphics g) {
-	/*super.paintComponent(g);*/
+	super.paintComponent(g);
 	for (Shape shape:shapes) {
 	    shape.draw(g);
 	}
