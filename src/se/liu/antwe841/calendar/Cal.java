@@ -8,10 +8,6 @@ import static se.liu.antwe841.calendar.Month.getMonthDays;
 public class Cal {
     private List<Appointment> appointments;
 
-    public List<Appointment> getAppointments() {
-	return appointments;
-    }
-
     public Cal() {
 	appointments = new ArrayList<>();
     }

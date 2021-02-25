@@ -6,14 +6,13 @@ import java.awt.*;
 public class OldTetrisViewer
 {
     private Board board;
-    private JFrame frame;
 
     public OldTetrisViewer(Board board) {
 	this.board = board;
-	this.frame = new JFrame("Tetris");
     }
 
     public void show(){
+	JFrame frame = new JFrame("Tetris");
 	BoardToTextConverter textConverter = new BoardToTextConverter(board);
 	String text = textConverter.convertToText();
 	JTextArea textArea = new JTextArea(board.getHeight(), board.getWidth());

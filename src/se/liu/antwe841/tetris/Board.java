@@ -1,20 +1,22 @@
 package se.liu.antwe841.tetris;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class Board {
-    private SquareType[][] squares;
     private int width;
     private int height;
     private int fallingX;
     private int fallingY;
+    private int fallingStartX = 4;
+    private int fallingStartY = 0;
     private static final int MARGIN = 2;
     private static final int DOUBLE_MARGIN = 4;
+
     private final static Random RND = new Random();
+    private boolean gameOver = false;
+    private SquareType[][] squares;
     private Poly falling;
     private TetrominoMaker maker;
     private List<BoardListener> boardListeners;
@@ -26,10 +28,11 @@ public class Board {
 	this.height = height;
 	this.maker = new TetrominoMaker();
 	this.falling = maker.getPoly(RND.nextInt(maker.getNumberOfTypes()));
-	this.fallingX = (width + MARGIN)/ 2;
-	this.fallingY = MARGIN;
+	this.fallingX = fallingStartX;
+	this.fallingY = fallingStartY;
 	this.boardListeners = new ArrayList<>();
 
+	//Set correct SquareTypes for empty board
 	for (int col = 0; col < width + DOUBLE_MARGIN; col++) {
 	    for (int row = 0; row < height + DOUBLE_MARGIN; row++) {
 		squares[row][col] = SquareType.OUTSIDE;
@@ -44,13 +47,13 @@ public class Board {
 
     // ============================================= Getters ===============================================================================
 
-    public Poly getFalling() { return falling; }
+    public Poly getFalling() {return falling;}
 
-    public int getFallingX() {return fallingX; }
+    public int getFallingX() {return fallingX;}
 
-    public int getFallingY() { return fallingY; }
+    public int getFallingY() {return fallingY;}
 
-    public int getWidth() {return width; }
+    public int getWidth() {return width;}
 
     public int getHeight() {
 	return height;
@@ -59,21 +62,11 @@ public class Board {
     // ============================================= Public methods ========================================================================
 
     public void tick(){
-	setFalling();
-	moveFalling();
-	//hasCollision();
-	notifyListeners();
-    }
-
-    public void setFalling(){
-	if (falling == null){
-	    falling = maker.getPoly(RND.nextInt(maker.getNumberOfTypes()));
-	}
-    }
-
-    public void moveFalling(){
-        if (falling != null){
-	    fallingY += 1;
+        if (!gameOver) {
+	    setFalling();
+	    moveFalling();
+	    fallingHitBottom();
+	    notifyListeners();
 	}
     }
 
@@ -86,33 +79,30 @@ public class Board {
 	}
         notifyListeners();
     }
-/*
-    private boolean hasCollision(){
-	//if (getSquareAt(fallingX - MARGIN, fallingY - MARGIN) != SquareType.EMPTY){
-	  //  System.out.println("not empty");
-	//}
-	//if (getSquareAt(fallingX - MARGIN, fallingY - MARGIN) == ){
-	  //  System.out.println("falltype");
-	//}
-	//for (int x = 0; x < falling.getWidth(); x++) {
 
-	//}
-	return true;
+    public boolean hasCollision(){
+        if (falling != null) {
+	    for (int x = 0; x < falling.getWidth(); x++) {
+		for (int y = 0; y < falling.getHeight(); y++) {
+		    if (falling.getSquare(x, y) != SquareType.EMPTY) {
+			if (squares[fallingY + y + MARGIN][fallingX + x + MARGIN] != SquareType.EMPTY) {
+			    return true; } } } } }
+        return false;
     }
-*/
+
     public void addBoardListener(BoardListener bl){ boardListeners.add(bl); }
 
     public SquareType getSquareAt(int x, int y) {
-        x += MARGIN;
-        y += MARGIN;
-        if (isInFalling(x, y)){
-	    /*If part of falling is empty*/
+        if (falling != null && isInFalling(x + MARGIN, y + MARGIN)){
+	    //If part of falling is empty
             if (falling.getSquare(x - getFallingX(),y - getFallingY()) == SquareType.EMPTY){
-            	return squares[y][x]; }
+                //Return board
+            	return squares[y + MARGIN][x + MARGIN]; }
             else {
+                //Return falling
                 return falling.getSquare(x - getFallingX(),y - getFallingY()); }
         }
-        else { return squares[y][x]; }
+        else { return squares[y + MARGIN][x + MARGIN]; }
     }
 
     public void replaceWithRandomBoard(Board board) {
@@ -133,9 +123,42 @@ public class Board {
 		bl.boardChanged(); }
     }
 
+    private void fallingHitBottom(){
+	if (hasCollision()){
+	    fallingY -= 1;
+	    for (int x = 0; x < falling.getWidth(); x++) {
+		for (int y = 0; y < falling.getHeight(); y++) {
+		    if (falling.getSquare(x, y) != SquareType.EMPTY) {
+			squares[fallingY + y + MARGIN][fallingX + x + MARGIN] = falling.getSquare(x, y); }
+		}
+	    }
+	    //Reset falling
+	    fallingX = fallingStartX;
+	    fallingY = fallingStartY;
+	    this.falling = null;
+	}
+    }
+
+    private void setFalling(){
+	if (falling == null){
+	    falling = maker.getPoly(RND.nextInt(maker.getNumberOfTypes()));
+	    //Check Game Over
+	    if (hasCollision()){
+		gameOver = true;
+		System.out.println("Game over");
+	    }
+	}
+    }
+
+    private void moveFalling(){
+	if (falling != null){
+	    fallingY += 1;
+	}
+    }
+
     private boolean isInFalling(int x, int y){
-        if (x < getFallingX() || x >= getFallingX() + falling.getWidth() ||
-	y < getFallingY() || y >= getFallingY() + falling.getHeight()) {
+        if (x < getFallingX() + MARGIN || x >= getFallingX() + MARGIN + falling.getWidth() ||
+	y < getFallingY() + MARGIN || y >= getFallingY() + MARGIN + falling.getHeight()) {
             return false; }
 	return true;
     }

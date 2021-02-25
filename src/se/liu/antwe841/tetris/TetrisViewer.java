@@ -40,13 +40,20 @@ public class TetrisViewer {
     private class MoveAction extends AbstractAction {
 	private final Direction moveCommand;
 
-
 	private MoveAction(final Direction moveCommand){
 	    this.moveCommand = moveCommand;
 	}
 
 	@Override public void actionPerformed(final ActionEvent e) {
 	    board.move(moveCommand);
+	    if (board.hasCollision()) {
+		if (moveCommand.equals(Direction.LEFT)){
+		    board.move(Direction.RIGHT);
+		}
+		else {
+		    board.move(Direction.LEFT);
+		}
+	    }
 	}
     }
 }

@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 
 public class BoardTester
 {
+
+
     public static void main(String[] args) {
 	Board board = new Board(10, 20);
 	TetrisViewer tetrisViewer = new TetrisViewer(board);

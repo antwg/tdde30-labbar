@@ -1,15 +1,13 @@
 package se.liu.antwe841.tetris;
 
 public class TetrominoMaker {
-    private int numberOfTypes;
+    private final static int NUMBER_OF_TYPES = 7;
 
     public int getNumberOfTypes(){
-	return numberOfTypes;
+	return NUMBER_OF_TYPES;
     }
 
-    public TetrominoMaker() {
-	this.numberOfTypes = 7;
-    }
+    public TetrominoMaker() {}
 
     public Poly getPoly(int n) {
         switch (n) {
