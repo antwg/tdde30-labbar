@@ -1,19 +1,20 @@
 package se.liu.antwe841.tetris;
 
-public class Poly {
+public class Poly
+{
     private SquareType[][] polyArray;
-    private SquareType type;
     private int width;
     private int height;
 
-    public Poly(final SquareType[][] polyArray, SquareType type) {
+    public Poly(final SquareType[][] polyArray) {
 	this.polyArray = polyArray;
 	this.width = polyArray[0].length;
 	this.height = polyArray.length;
-	this.type = type;
     }
 
-    public SquareType getSquare(int x, int y) {return polyArray[y][x]; }
+    public SquareType getSquare(int x, int y) {
+	return polyArray[y][x];
+    }
 
     public int getWidth() {
 	return width;
@@ -23,8 +24,16 @@ public class Poly {
 	return height;
     }
 
-    public SquareType getType() {
-	return type;
+    public Poly rotateRight(boolean right){
+
+	Poly newPoly = new Poly(new SquareType[height][width]);
+
+        for (int r = 0; r < height; r++) {
+	    for (int c = 0; c < width; c++){
+		newPoly.polyArray[c][width-1-r] = this.polyArray[r][c];
+	    }
+	}
+	return newPoly;
     }
 
 }

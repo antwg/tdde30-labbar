@@ -46,7 +46,7 @@ public class TetrisViewer {
 
 	@Override public void actionPerformed(final ActionEvent e) {
 	    board.move(moveCommand);
-	    if (board.hasCollision()) {
+	    if (board.hasCollision(board.getFalling())) {
 		if (moveCommand.equals(Direction.LEFT)){
 		    board.move(Direction.RIGHT);
 		}

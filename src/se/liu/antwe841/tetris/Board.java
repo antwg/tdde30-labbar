@@ -9,18 +9,17 @@ public class Board {
     private int height;
     private int fallingX;
     private int fallingY;
-    private int fallingStartX = 4;
-    private int fallingStartY = 0;
-    private static final int MARGIN = 2;
-    private static final int DOUBLE_MARGIN = 4;
-
-    private final static Random RND = new Random();
     private boolean gameOver = false;
     private SquareType[][] squares;
     private Poly falling;
     private TetrominoMaker maker;
     private List<BoardListener> boardListeners;
 
+    private final int fallingStartX;
+    private final static int FALLINGSTARTY = 0;
+    private static final int MARGIN = 2;
+    private static final int DOUBLE_MARGIN = 4;
+    private final static Random RND = new Random();
 
     public Board(final int width, final int height) {
 	this.squares = new SquareType[height + DOUBLE_MARGIN][width + DOUBLE_MARGIN];
@@ -28,9 +27,11 @@ public class Board {
 	this.height = height;
 	this.maker = new TetrominoMaker();
 	this.falling = maker.getPoly(RND.nextInt(maker.getNumberOfTypes()));
+	this.fallingStartX = (width / 2) - MARGIN;
 	this.fallingX = fallingStartX;
-	this.fallingY = fallingStartY;
+	this.fallingY = FALLINGSTARTY;
 	this.boardListeners = new ArrayList<>();
+
 
 	//Set correct SquareTypes for empty board
 	for (int col = 0; col < width + DOUBLE_MARGIN; col++) {
@@ -66,7 +67,23 @@ public class Board {
 	    setFalling();
 	    moveFalling();
 	    fallingHitBottom();
+	    rotate(Direction.RIGHT);
 	    notifyListeners();
+	}
+    }
+
+    public void rotate(Direction dir){
+        if (falling != null) {
+	    Poly copy = new Poly(new SquareType[height][width]);
+
+	    if (dir == Direction.RIGHT) {
+		copy = falling.rotateRight(true);
+	    } else {
+		copy = falling.rotateRight(true).rotateRight(true).rotateRight(true);
+	    }
+	    if (!hasCollision(copy)) {
+		falling = copy;
+	    }
 	}
     }
 
@@ -80,11 +97,11 @@ public class Board {
         notifyListeners();
     }
 
-    public boolean hasCollision(){
-        if (falling != null) {
-	    for (int x = 0; x < falling.getWidth(); x++) {
-		for (int y = 0; y < falling.getHeight(); y++) {
-		    if (falling.getSquare(x, y) != SquareType.EMPTY) {
+    public boolean hasCollision(Poly pol){
+        if (pol != null) {
+	    for (int x = 0; x < pol.getWidth(); x++) {
+		for (int y = 0; y < pol.getHeight(); y++) {
+		    if (pol.getSquare(x, y) != SquareType.EMPTY) {
 			if (squares[fallingY + y + MARGIN][fallingX + x + MARGIN] != SquareType.EMPTY) {
 			    return true; } } } } }
         return false;
@@ -124,7 +141,7 @@ public class Board {
     }
 
     private void fallingHitBottom(){
-	if (hasCollision()){
+	if (hasCollision(falling)){
 	    fallingY -= 1;
 	    for (int x = 0; x < falling.getWidth(); x++) {
 		for (int y = 0; y < falling.getHeight(); y++) {
@@ -134,7 +151,7 @@ public class Board {
 	    }
 	    //Reset falling
 	    fallingX = fallingStartX;
-	    fallingY = fallingStartY;
+	    fallingY = FALLINGSTARTY;
 	    this.falling = null;
 	}
     }
@@ -143,7 +160,7 @@ public class Board {
 	if (falling == null){
 	    falling = maker.getPoly(RND.nextInt(maker.getNumberOfTypes()));
 	    //Check Game Over
-	    if (hasCollision()){
+	    if (hasCollision(falling)){
 		gameOver = true;
 		System.out.println("Game over");
 	    }
