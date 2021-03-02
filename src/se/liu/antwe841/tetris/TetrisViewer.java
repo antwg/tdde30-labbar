@@ -104,6 +104,10 @@ public class TetrisViewer {
 		}
 	    }
 	}
+
+	@Override public final MoveAction clone() throws CloneNotSupportedException {
+	    return (MoveAction) super.clone();
+	}
     }
 
     private class RotateAction extends AbstractAction {
@@ -115,6 +119,10 @@ public class TetrisViewer {
 
 	@Override public void actionPerformed(final ActionEvent e) {
 	    board.rotate(rotateCommand);
+	}
+
+	@Override public final RotateAction clone() throws CloneNotSupportedException {
+	    return (RotateAction) super.clone();
 	}
     }
 
@@ -137,6 +145,10 @@ public class TetrisViewer {
 		    break;
 		default:
 	    }
+	}
+
+	@Override public final MenuAction clone() throws CloneNotSupportedException {
+	    return (MenuAction) super.clone();
 	}
     }
 }

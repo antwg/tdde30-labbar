@@ -22,11 +22,17 @@ public class BoardTester {
 	tetrisViewer.setBoard();
 
 
-	final Action doOneStep = new AbstractAction() {
+	final Action doOneStep = new AbstractAction()
+	{
 	    @Override public void actionPerformed(final ActionEvent e) {
-	        board.tick();
+		board.tick();
+	    }
+
+	    @Override protected AbstractAction clone(){ // Bara för att bli av med varningen
+		return null;
 	    }
 	};
+
 
 	final Timer clockTimer = new Timer(CLOCK_DELAY, doOneStep);
 	clockTimer.setCoalesce(true);
