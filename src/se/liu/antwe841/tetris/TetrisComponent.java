@@ -6,9 +6,7 @@ import java.util.EnumMap;
 
 public class TetrisComponent extends JComponent implements BoardListener{
     private Board board;
-
     private final static EnumMap<SquareType, Color> SQUARE_COLORS = createColorMap();
-
     private final static int SQUARE_SIZE = 30;
     private final static int MARGIN = 5;
     private final static int WINDOW_WIDTH = 350;
@@ -17,6 +15,10 @@ public class TetrisComponent extends JComponent implements BoardListener{
     public TetrisComponent(final Board board) {
 	this.board = board;
     }
+
+
+    // ============================== Methods ==============================================================================================
+
 
     @Override public void boardChanged() {
 	repaint();
@@ -54,7 +56,6 @@ public class TetrisComponent extends JComponent implements BoardListener{
 
 	return map;
     }
-
 }
 
 

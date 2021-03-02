@@ -56,24 +56,24 @@ public class Board {
 
     public int getWidth() {return width;}
 
-    public int getHeight() {
-	return height;
-    }
+    public int getHeight() {return height;}
 
     // ============================================= Public methods ========================================================================
 
+    // 					      --- Board update methods ---
+
     public void tick(){
-        if (!gameOver) {
+	if (!gameOver) {
 	    setFalling();
 	    moveFalling();
 	    fallingHitBottom();
-	    rotate(Direction.RIGHT);
+	    removeFull();
 	    notifyListeners();
 	}
     }
 
     public void rotate(Direction dir){
-        if (falling != null) {
+	if (falling != null) {
 	    Poly copy = new Poly(new SquareType[height][width]);
 
 	    if (dir == Direction.RIGHT) {
@@ -84,48 +84,57 @@ public class Board {
 	    if (!hasCollision(copy)) {
 		falling = copy;
 	    }
+	    notifyListeners();
 	}
     }
 
     public void move(Direction direction){
-        if (direction == Direction.LEFT){
-            fallingX -= 1;
+	if (direction == Direction.LEFT){
+	    fallingX -= 1;
 	}
-        else if(direction == Direction.RIGHT){
-            fallingX += 1;
+	else if(direction == Direction.RIGHT){
+	    fallingX += 1;
 	}
-        notifyListeners();
+	else if (direction == Direction.DOWN){
+	    fallingY += 1;
+	}
+	else if (direction == Direction.UP){
+	    fallingY -= 1;
+	}
+	notifyListeners();
     }
 
-    public boolean hasCollision(Poly pol){
-        if (pol != null) {
-	    for (int x = 0; x < pol.getWidth(); x++) {
-		for (int y = 0; y < pol.getHeight(); y++) {
-		    if (pol.getSquare(x, y) != SquareType.EMPTY) {
-			if (squares[fallingY + y + MARGIN][fallingX + x + MARGIN] != SquareType.EMPTY) {
-			    return true; } } } } }
-        return false;
-    }
-
-    public void addBoardListener(BoardListener bl){ boardListeners.add(bl); }
+    // 					      --- Board state getter methods ---
 
     public SquareType getSquareAt(int x, int y) {
         if (falling != null && isInFalling(x + MARGIN, y + MARGIN)){
 	    //If part of falling is empty
             if (falling.getSquare(x - getFallingX(),y - getFallingY()) == SquareType.EMPTY){
-                //Return board
+                //Return from board
             	return squares[y + MARGIN][x + MARGIN]; }
             else {
-                //Return falling
+                //Return from falling
                 return falling.getSquare(x - getFallingX(),y - getFallingY()); }
         }
         else { return squares[y + MARGIN][x + MARGIN]; }
     }
 
+    public boolean hasCollision(Poly pol){
+	if (pol != null) {
+	    for (int x = 0; x < pol.getWidth(); x++) {
+		for (int y = 0; y < pol.getHeight(); y++) {
+		    if (pol.getSquare(x, y) != SquareType.EMPTY) {
+			if (squares[fallingY + y + MARGIN][fallingX + x + MARGIN] != SquareType.EMPTY) {
+			    return true; } } } } }
+	return false;
+    }
+
+    // 					      --- Others ---
+
     public void replaceWithRandomBoard(Board board) {
 	SquareType[] blockArray = SquareType.values();
-	for (int col = 0; col < width; col++) {
-	    for (int row = 0; row < height; row++) {
+	for (int col = MARGIN; col < width + MARGIN; col++) {
+	    for (int row = MARGIN; row < height + MARGIN; row++) {
 		SquareType currentRNDBlock = blockArray[RND.nextInt(blockArray.length)];
 	        squares[row][col] = currentRNDBlock;
 	    }
@@ -133,32 +142,54 @@ public class Board {
 	notifyListeners();
     }
 
+    public void addBoardListener(BoardListener bl){
+	boardListeners.add(bl);
+    }
+
     // ============================================= Private methods =======================================================================
 
-    private void notifyListeners(){
-	for (BoardListener bl: boardListeners) {
-		bl.boardChanged(); }
+    // 					      --- Modify board methods ---
+
+    private void removeFull(){
+	for (int y = MARGIN; y < height + MARGIN; y++) {
+	    if (rowFull(squares[y])){
+		moveBoardDown();
+	    }
+	}
     }
+
+    private void moveBoardDown(){
+	for (int y = height + MARGIN - 1; y > MARGIN; y--) {
+	    for (int x = MARGIN; x < width + MARGIN; x++) {
+		squares[y][x] = squares[y - 1][x];
+	    }
+	}
+    }
+
+    private void placeFalling(){
+	for (int x = 0; x < falling.getWidth(); x++) {
+	    for (int y = 0; y < falling.getHeight(); y++) {
+		if (falling.getSquare(x, y) != SquareType.EMPTY) {
+		    squares[fallingY + y + MARGIN][fallingX + x + MARGIN] = falling.getSquare(x, y); }
+	    }
+	}
+    }
+
+    // 					      --- Falling methods ---
 
     private void fallingHitBottom(){
 	if (hasCollision(falling)){
 	    fallingY -= 1;
-	    for (int x = 0; x < falling.getWidth(); x++) {
-		for (int y = 0; y < falling.getHeight(); y++) {
-		    if (falling.getSquare(x, y) != SquareType.EMPTY) {
-			squares[fallingY + y + MARGIN][fallingX + x + MARGIN] = falling.getSquare(x, y); }
-		}
-	    }
-	    //Reset falling
-	    fallingX = fallingStartX;
-	    fallingY = FALLINGSTARTY;
-	    this.falling = null;
+	    placeFalling();
+	    this.falling = null; //Reset falling
 	}
     }
 
     private void setFalling(){
 	if (falling == null){
-	    falling = maker.getPoly(RND.nextInt(maker.getNumberOfTypes()));
+	    falling = maker.getPoly((RND.nextInt(maker.getNumberOfTypes())));
+	    fallingX = fallingStartX;
+	    fallingY = FALLINGSTARTY;
 	    //Check Game Over
 	    if (hasCollision(falling)){
 		gameOver = true;
@@ -174,17 +205,25 @@ public class Board {
     }
 
     private boolean isInFalling(int x, int y){
-        if (x < getFallingX() + MARGIN || x >= getFallingX() + MARGIN + falling.getWidth() ||
-	y < getFallingY() + MARGIN || y >= getFallingY() + MARGIN + falling.getHeight()) {
-            return false; }
+	if (x < getFallingX() + MARGIN || x >= getFallingX() + MARGIN + falling.getWidth() ||
+	    y < getFallingY() + MARGIN || y >= getFallingY() + MARGIN + falling.getHeight()) {
+	    return false; }
 	return true;
     }
 
-    public static void main(String[] args) {
-	Board board = new Board(10,20);
-	OldTetrisViewer test = new OldTetrisViewer(board);
-	BoardToTextConverter text = new BoardToTextConverter(board);
-	System.out.println(text.convertToText());
-	test.show();
+    // 					      --- Others ---
+
+    private boolean rowFull(SquareType[] st){
+	for (final SquareType squareType : st) {
+	    if (squareType == SquareType.EMPTY) {
+		return false;
+	    }
+	}
+	return true;
+    }
+
+    private void notifyListeners(){
+	for (BoardListener bl: boardListeners) {
+		bl.boardChanged(); }
     }
 }
