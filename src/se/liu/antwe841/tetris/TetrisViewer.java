@@ -29,7 +29,7 @@ public class TetrisViewer {
 
     public void show() {
 	frameSetup();
-	menuSetup();
+	setupMenu();
 	frame.pack();
 	frame.setVisible(true);
     }
@@ -48,7 +48,7 @@ public class TetrisViewer {
     // ============================================= Private methods =======================================================================
 
 
-    private void menuSetup(){
+    private void setupMenu(){
 	JMenu game = new JMenu("Game");
 	final JMenuItem quit = new JMenuItem("Quit");
 	game.add(quit);

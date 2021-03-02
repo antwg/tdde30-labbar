@@ -16,7 +16,7 @@ public class Board {
     private List<BoardListener> boardListeners;
 
     private final int fallingStartX;
-    private final static int FALLINGSTARTY = 0;
+    private final static int FALLING_START_Y = 0;
     private static final int MARGIN = 2;
     private static final int DOUBLE_MARGIN = 4;
     private final static Random RND = new Random();
@@ -29,7 +29,7 @@ public class Board {
 	this.falling = maker.getPoly(RND.nextInt(maker.getNumberOfTypes()));
 	this.fallingStartX = (width / 2) - MARGIN;
 	this.fallingX = fallingStartX;
-	this.fallingY = FALLINGSTARTY;
+	this.fallingY = FALLING_START_Y;
 	this.boardListeners = new ArrayList<>();
 
 
@@ -189,7 +189,7 @@ public class Board {
 	if (falling == null){
 	    falling = maker.getPoly((RND.nextInt(maker.getNumberOfTypes())));
 	    fallingX = fallingStartX;
-	    fallingY = FALLINGSTARTY;
+	    fallingY = FALLING_START_Y;
 	    //Check Game Over
 	    if (hasCollision(falling)){
 		gameOver = true;

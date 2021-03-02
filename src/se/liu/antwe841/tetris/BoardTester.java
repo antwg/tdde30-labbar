@@ -7,14 +7,18 @@ public class BoardTester {
     private final static int SLEEP_DELAY = 1500;
     private final static int CLOCK_DELAY = 1000;
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
 	Board board = new Board(10, 20);
 	TetrisViewer tetrisViewer = new TetrisViewer(board);
 	board.addBoardListener(tetrisViewer.getComp());
 
 	tetrisViewer.setStartIMG();
 	tetrisViewer.show();
-	Thread.sleep(SLEEP_DELAY);
+	try {
+	    Thread.sleep(SLEEP_DELAY);
+	} catch (InterruptedException e) {
+	    e.printStackTrace();
+	}
 	tetrisViewer.setBoard();
 
 

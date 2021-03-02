@@ -5,11 +5,11 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 
 public class StartImageShower extends JComponent{
-    final ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("images/tetris.png"));
-    private final static int XCOORD = 10;
-    private final static int YCOORD = 0;
-    private final static int PREFFERED_WIDTH = 350;
-    private final static int PREFFERED_HEIGHT = 700;
+    private final ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("images/tetris.png"));
+    private final static int X_COORDINATE = 10;
+    private final static int Y_COORDINATE = 0;
+    private final static int PREFERED_WIDTH = 350;
+    private final static int PREFERED_HEIGHT = 700;
     private final static double SCALE = 0.8;
 
 
@@ -21,13 +21,13 @@ public class StartImageShower extends JComponent{
 	final AffineTransform at = AffineTransform.getScaleInstance(SCALE, SCALE);
 	g2d.transform(at);
 
-	icon.paintIcon(this, g, XCOORD, YCOORD);
+	icon.paintIcon(this, g, X_COORDINATE, Y_COORDINATE);
 
 	g2d.setTransform(old);
     }
 
     @Override public Dimension getPreferredSize() {
-	return new Dimension(PREFFERED_WIDTH, PREFFERED_HEIGHT);
+	return new Dimension(PREFERED_WIDTH, PREFERED_HEIGHT);
     }
 }
 
