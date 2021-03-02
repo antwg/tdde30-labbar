@@ -27,10 +27,6 @@ public class BoardTester {
 	    @Override public void actionPerformed(final ActionEvent e) {
 		board.tick();
 	    }
-
-	    @Override protected AbstractAction clone(){ // Bara för att bli av med varningen
-		return null;
-	    }
 	};
 
 
