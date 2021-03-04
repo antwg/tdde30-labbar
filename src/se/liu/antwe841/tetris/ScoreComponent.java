@@ -5,9 +5,9 @@ import java.awt.*;
 
 public class ScoreComponent extends JComponent implements BoardListener {
     private Board board;
-    private static final int WIDTH = 50;
+    private static final int WIDTH = 60;
     private static final int HEIGHT = 50;
-    private static final int SIZE = 30;
+    private static final int SIZE = 35;
     private static final int X_VALUE = 10;
     private static final int Y_VALUE = 30;
 

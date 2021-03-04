@@ -6,7 +6,7 @@ import java.util.EnumMap;
 
 public class TetrisComponent extends JComponent implements BoardListener{
     private Board board;
-    private final static EnumMap<SquareType, Color> SQUARE_COLORS = createColorMap();
+    private EnumMap<SquareType, Color> squareColors;
     private final static int SQUARE_SIZE = 30;
     private final static int MARGIN = 5;
     private final  int componentWidth;
@@ -16,6 +16,7 @@ public class TetrisComponent extends JComponent implements BoardListener{
 	this.board = board;
 	this.componentWidth = board.getWidth() * (SQUARE_SIZE + MARGIN);
 	this.componentHeight = board.getHeight() * (SQUARE_SIZE + MARGIN);
+	this.squareColors = createColorMap();
     }
 
 
@@ -37,13 +38,13 @@ public class TetrisComponent extends JComponent implements BoardListener{
 	for (int col = 0; col < board.getWidth(); col++) {
 	    for (int row = 0; row < board.getHeight(); row++) {
 		SquareType squareType = board.getSquareAt(col, row);
-		g2d.setColor(SQUARE_COLORS.get(squareType));
+		g2d.setColor(squareColors.get(squareType));
 		g2d.fillRect(col * (SQUARE_SIZE + MARGIN), row * (SQUARE_SIZE + MARGIN), SQUARE_SIZE, SQUARE_SIZE);
 	    }
 	}
     }
 
-    public static EnumMap<SquareType, Color> createColorMap(){
+    public final EnumMap<SquareType, Color> createColorMap(){
 	EnumMap<SquareType, Color> map = new EnumMap<>(SquareType.class);
 
 	map.put(SquareType.EMPTY, Color.WHITE);

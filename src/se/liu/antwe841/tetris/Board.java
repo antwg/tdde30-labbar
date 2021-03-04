@@ -24,8 +24,8 @@ public class Board {
     private final static Random RND = new Random();
     private final static int ONE_ROW = 1, TWO_ROW = 2, THREE_ROW = 3, FOUR_ROW = 4, ONE_ROW_POINTS = 100, TWO_ROW_POINTS = 300,
     			     THREE_ROW_POINTS = 500, FOUR_ROW_POINTS = 800;
-    private static Map<Integer, Integer> pointMap = Map.of(ONE_ROW, ONE_ROW_POINTS, TWO_ROW, TWO_ROW_POINTS, THREE_ROW, THREE_ROW_POINTS,
-							   FOUR_ROW, FOUR_ROW_POINTS);
+    private final static Map<Integer, Integer> POINTMAP = Map.of(ONE_ROW, ONE_ROW_POINTS, TWO_ROW, TWO_ROW_POINTS, THREE_ROW, THREE_ROW_POINTS,
+			      FOUR_ROW, FOUR_ROW_POINTS);
 
     // Constructor
     public Board(final int width, final int height) {
@@ -169,7 +169,7 @@ public class Board {
 	    }
 	}
 	if (rowsRemoved > 0) {
-	    totalScore += pointMap.get(rowsRemoved);
+	    totalScore += POINTMAP.get(rowsRemoved);
 	}
     }
 
