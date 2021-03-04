@@ -9,11 +9,13 @@ public class TetrisComponent extends JComponent implements BoardListener{
     private final static EnumMap<SquareType, Color> SQUARE_COLORS = createColorMap();
     private final static int SQUARE_SIZE = 30;
     private final static int MARGIN = 5;
-    private final static int WINDOW_WIDTH = 350;
-    private final static int WINDOW_HEIGHT = 700;
+    private final  int componentWidth;
+    private final  int componentHeight;
 
     public TetrisComponent(final Board board) {
 	this.board = board;
+	this.componentWidth = board.getWidth() * (SQUARE_SIZE + MARGIN);
+	this.componentHeight = board.getHeight() * (SQUARE_SIZE + MARGIN);
     }
 
 
@@ -25,7 +27,7 @@ public class TetrisComponent extends JComponent implements BoardListener{
     }
 
     @Override public Dimension getPreferredSize() {
-	return new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT);
+	return new Dimension(componentWidth, componentHeight);
     }
 
     @Override protected void paintComponent(final Graphics g) {

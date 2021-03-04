@@ -4,13 +4,29 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class BoardTester {
+    public Board board;
+    private GameRunner gameRunner;
+
     private final static int SLEEP_DELAY = 1500;
     private final static int CLOCK_DELAY = 1000;
 
-    public static void main(String[] args) {
-	Board board = new Board(10, 20);
-	TetrisViewer tetrisViewer = new TetrisViewer(board);
-	board.addBoardListener(tetrisViewer.getComp());
+    public BoardTester(GameRunner gameRunner) {
+	this.board = new Board(10, 20);
+	this.gameRunner = gameRunner;
+    }
+
+    public Board getBoard() {
+	return board;
+    }
+
+    public GameRunner getGameRunner() {
+	return gameRunner;
+    }
+
+    public void runGame(BoardTester boardTester) {
+	TetrisViewer tetrisViewer = new TetrisViewer(boardTester);
+	board.addBoardListener(tetrisViewer.getTetrisComponent());
+	board.addBoardListener(tetrisViewer.getScoreComponent());
 
 	tetrisViewer.setStartIMG();
 	tetrisViewer.show();
@@ -28,7 +44,6 @@ public class BoardTester {
 		board.tick();
 	    }
 	};
-
 
 	final Timer clockTimer = new Timer(CLOCK_DELAY, doOneStep);
 	clockTimer.setCoalesce(true);

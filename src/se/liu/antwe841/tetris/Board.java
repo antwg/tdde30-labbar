@@ -2,6 +2,7 @@ package se.liu.antwe841.tetris;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class Board {
@@ -14,12 +15,14 @@ public class Board {
     private Poly falling;
     private TetrominoMaker maker;
     private List<BoardListener> boardListeners;
+    private int totalScore = 0;
 
     private final int fallingStartX;
     private final static int FALLING_START_Y = 0;
     private static final int MARGIN = 2;
     private static final int DOUBLE_MARGIN = 4;
     private final static Random RND = new Random();
+    private static Map<Integer, Integer> pointMap = Map.of(1, 100, 2, 300, 3, 500, 4, 800);
 
     public Board(final int width, final int height) {
 	this.squares = new SquareType[height + DOUBLE_MARGIN][width + DOUBLE_MARGIN];
@@ -57,6 +60,8 @@ public class Board {
     public int getWidth() {return width;}
 
     public int getHeight() {return height;}
+
+    public int getTotalScore() { return totalScore; }
 
     // ============================================= Public methods ========================================================================
 
@@ -104,7 +109,7 @@ public class Board {
 	notifyListeners();
     }
 
-    // 					      --- Board state getter methods ---
+    // 					      --- Board state methods ---
 
     public SquareType getSquareAt(int x, int y) {
         if (falling != null && isInFalling(x + MARGIN, y + MARGIN)){
@@ -151,19 +156,25 @@ public class Board {
     // 					      --- Modify board methods ---
 
     private void removeFull(){
+        int rowsRemoved = 0;
 	for (int y = MARGIN; y < height + MARGIN; y++) {
 	    if (rowFull(squares[y])){
-		moveBoardDown();
+		moveBoardDown(y);
+		rowsRemoved += 1;
 	    }
+	}
+	if (rowsRemoved > 0) {
+	    totalScore += pointMap.get(rowsRemoved);
 	}
     }
 
-    private void moveBoardDown(){
-	for (int y = height + MARGIN - 1; y > MARGIN; y--) {
+    private void moveBoardDown(int level){
+	for (int y = level; y > MARGIN; y--) {
 	    for (int x = MARGIN; x < width + MARGIN; x++) {
 		squares[y][x] = squares[y - 1][x];
 	    }
 	}
+	notifyListeners();
     }
 
     private void placeFalling(){
@@ -202,6 +213,7 @@ public class Board {
 	if (falling != null){
 	    fallingY += 1;
 	}
+	notifyListeners();
     }
 
     private boolean isInFalling(int x, int y){
