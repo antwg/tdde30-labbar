@@ -22,8 +22,12 @@ public class Board {
     private static final int MARGIN = 2;
     private static final int DOUBLE_MARGIN = 4;
     private final static Random RND = new Random();
-    private static Map<Integer, Integer> pointMap = Map.of(1, 100, 2, 300, 3, 500, 4, 800);
+    private final static int ONE_ROW = 1, TWO_ROW = 2, THREE_ROW = 3, FOUR_ROW = 4, ONE_ROW_POINTS = 100, TWO_ROW_POINTS = 300,
+    			     THREE_ROW_POINTS = 500, FOUR_ROW_POINTS = 800;
+    private static Map<Integer, Integer> pointMap = Map.of(ONE_ROW, ONE_ROW_POINTS, TWO_ROW, TWO_ROW_POINTS, THREE_ROW, THREE_ROW_POINTS,
+							   FOUR_ROW, FOUR_ROW_POINTS);
 
+    // Constructor
     public Board(final int width, final int height) {
 	this.squares = new SquareType[height + DOUBLE_MARGIN][width + DOUBLE_MARGIN];
 	this.width = width;
@@ -113,13 +117,14 @@ public class Board {
 
     public SquareType getSquareAt(int x, int y) {
         if (falling != null && isInFalling(x + MARGIN, y + MARGIN)){
-	    //If part of falling is empty
-            if (falling.getSquare(x - getFallingX(),y - getFallingY()) == SquareType.EMPTY){
+	    SquareType fallingSquare = (falling.getSquare(x - getFallingX(),y - getFallingY()));
+            //If part of falling is empty
+            if (fallingSquare == SquareType.EMPTY){
                 //Return from board
             	return squares[y + MARGIN][x + MARGIN]; }
             else {
                 //Return from falling
-                return falling.getSquare(x - getFallingX(),y - getFallingY()); }
+                return fallingSquare; }
         }
         else { return squares[y + MARGIN][x + MARGIN]; }
     }

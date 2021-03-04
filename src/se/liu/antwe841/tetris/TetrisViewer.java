@@ -16,6 +16,7 @@ public class TetrisViewer {
     private ScoreComponent scoreComponent;
     private GameRunner gameRunner;
 
+    // Constructor
     public TetrisViewer(BoardTester boardTester) {
 	this.board = boardTester.getBoard();
 	this.tetrisComponent = new TetrisComponent(board);

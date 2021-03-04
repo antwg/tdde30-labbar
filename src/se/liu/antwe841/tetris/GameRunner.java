@@ -17,7 +17,7 @@ public class GameRunner {
 
     }
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args){
         GameRunner gameRunner = new GameRunner();
         gameRunner.newGame(gameRunner);
         //gameRunner.highscoreList.addScore(new Highscore("anton", 100));

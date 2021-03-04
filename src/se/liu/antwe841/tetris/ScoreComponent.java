@@ -8,6 +8,8 @@ public class ScoreComponent extends JComponent implements BoardListener {
     private static final int WIDTH = 50;
     private static final int HEIGHT = 50;
     private static final int SIZE = 30;
+    private static final int X_VALUE = 10;
+    private static final int Y_VALUE = 30;
 
     public ScoreComponent(final Board board) {
 	this.board = board;
@@ -28,7 +30,7 @@ public class ScoreComponent extends JComponent implements BoardListener {
 
 	g.setColor(Color.BLACK);
 	g.setFont(new Font("serif", Font.PLAIN, SIZE));
-	g.drawString("Score: " + board.getTotalScore(), 10, 30);
+	g.drawString("Score: " + board.getTotalScore(), X_VALUE, Y_VALUE);
 
     }
 }
