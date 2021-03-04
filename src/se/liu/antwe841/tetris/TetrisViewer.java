@@ -1,7 +1,5 @@
 package se.liu.antwe841.tetris;
 
-import com.google.gson.Gson;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -83,7 +81,7 @@ public class TetrisViewer {
 	String name = JOptionPane.showInputDialog("Name");
 	Highscore highscore = new Highscore(name, board.getTotalScore());
 	gameRunner.getHighscoreList().addScore(highscore);
-	List<Highscore> scores = gameRunner.getHighscoreList().getHighScoreList();
+	List<Highscore> scores = gameRunner.getHighscoreList().getScores();
 	scores.sort(new ScoreComparator());
     }
 
@@ -151,28 +149,25 @@ public class TetrisViewer {
 	    this.choice = action;
 	}
 
-
 	@Override public void actionPerformed(final ActionEvent e) {
 	    switch (choice) {
 		case QUIT:
 		    if (JOptionPane.showConfirmDialog(null, QUIT_MESSAGE, "",
 						      JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 			saveScore();
-			JOptionPane.showMessageDialog(null, gameRunner.getHighscoreList().getHighScoreList().toString());
-			Gson gson = new Gson();
-			String listAsJson = gson.toJson(gameRunner.getHighscoreList());
-			System.out.println(listAsJson);
+			JOptionPane.showMessageDialog(null, gameRunner.getHighscoreList().getScores().toString());
+			gameRunner.getHighscoreList().saveHighScoreList();
 			System.exit(0);
 		    }
 		    break;
 		case RESTART:
 		    saveScore();
 		    frame.dispose();
-		    JOptionPane.showMessageDialog(null, gameRunner.getHighscoreList().getHighScoreList().toString());
+		    JOptionPane.showMessageDialog(null, gameRunner.getHighscoreList().getScores().toString());
 		    gameRunner.newGame(gameRunner);
 		    break;
 		default:
-		    System.out.println("deafult");
+		    System.out.println("default");
 	    }
 	}
     }

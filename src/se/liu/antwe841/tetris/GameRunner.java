@@ -20,8 +20,8 @@ public class GameRunner {
     public static void main(String[] args){
         GameRunner gameRunner = new GameRunner();
         gameRunner.newGame(gameRunner);
-        //gameRunner.highscoreList.addScore(new Highscore("anton", 100));
-        //System.out.println(gameRunner.highscoreList.getHighScoreList());
+        gameRunner.highscoreList.readFromJson();
+
     }
 
 
