@@ -71,9 +71,9 @@ public class Board {
 	    Poly copy = new Poly(new SquareType[height][width]);
 
 	    if (dir == Direction.RIGHT) {
-		copy = falling.rotateRight(true);
+		copy = falling.rotateRight();
 	    } else {
-		copy = falling.rotateRight(true).rotateRight(true).rotateRight(true);
+		copy = falling.rotateRight().rotateRight().rotateRight();
 	    }
 	    if (!hasCollision(copy)) {
 		falling = copy;
@@ -94,6 +94,17 @@ public class Board {
 	}
 	else if (direction == Direction.UP){
 	    fallingY -= 1;
+	}
+	if (hasCollision(falling)) {
+	    if (direction.equals(Direction.LEFT)) {
+		move(Direction.RIGHT);
+	    }
+	    else if (direction.equals(Direction.RIGHT)){
+		move(Direction.LEFT);
+	    }
+	    else if (direction.equals(Direction.DOWN)){
+		move(Direction.UP);
+	    }
 	}
 	notifyListeners();
     }
@@ -175,6 +186,9 @@ public class Board {
 	    for (int x = MARGIN; x < width + MARGIN; x++) {
 		squares[y][x] = squares[y - 1][x];
 	    }
+	}
+	for (int x2 = MARGIN; x2 < MARGIN + width; x2++) {
+	    squares[MARGIN][x2] = SquareType.EMPTY;
 	}
 	notifyListeners();
     }

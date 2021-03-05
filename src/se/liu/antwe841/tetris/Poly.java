@@ -24,7 +24,7 @@ public class Poly
 	return height;
     }
 
-    public Poly rotateRight(boolean right){
+    public Poly rotateRight(){
 
 	Poly newPoly = new Poly(new SquareType[height][width]);
 

@@ -34,10 +34,10 @@ public class HighscoreList {
         scores.add(highscore);
         List<Highscore> unsortedScores = this.scores;
         unsortedScores.sort(new ScoreComparator());
-        saveHighscoreList();
+        saveToJson();
     }
 
-    public void saveHighscoreList() throws FileNotFoundException {
+    public void saveToJson() throws FileNotFoundException {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String listAsJson = gson.toJson(getScores());
 
@@ -53,5 +53,14 @@ public class HighscoreList {
 
             this.scores = listOfHighscores;
         }
+    }
+
+    @Override public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < 10; i++) { //Only first 10 interesting
+            stringBuilder.append(scores.get(i));
+            stringBuilder.append("\n");
+        }
+        return stringBuilder.toString();
     }
 }

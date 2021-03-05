@@ -87,7 +87,7 @@ public class TetrisViewer {
 	else {
 	    try {
 		highscoreList.addScore(new Highscore(name, board.getTotalScore()));
-		JOptionPane.showMessageDialog(null, highscoreList.getScores().toString());
+		JOptionPane.showMessageDialog(null, highscoreList.toString());
 	    }
 	    catch (FileNotFoundException e) {
 		if (JOptionPane.showConfirmDialog(null, "Failed to write to highscorelist, try again?", "", JOptionPane.YES_NO_OPTION) ==
@@ -129,18 +129,6 @@ public class TetrisViewer {
 
 	@Override public void actionPerformed(final ActionEvent e) {
 	    board.move(moveCommand);
-	    // Collision handling
-	    if (board.hasCollision(board.getFalling())) {
-		if (moveCommand.equals(Direction.LEFT)) {
-		    board.move(Direction.RIGHT);
-		}
-		else if (moveCommand.equals(Direction.RIGHT)){
-		    board.move(Direction.LEFT);
-		}
-		else if (moveCommand.equals(Direction.DOWN)){
-		    board.move(Direction.UP);
-		}
-	    }
 	}
     }
 

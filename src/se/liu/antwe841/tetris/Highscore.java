@@ -13,7 +13,6 @@ public class Highscore {
 
     // ============================================= Getters ===============================================================================
 
-
     public String getName() {
 	return name;
     }
@@ -22,19 +21,7 @@ public class Highscore {
 	return score;
     }
 
-    // ============================================= Setters ===============================================================================
-
-
-    public void setName(final String name) {
-	this.name = name;
-    }
-
-    public void setScore(final int score) {
-	this.score = score;
-    }
-
     // ============================================= Methods ===============================================================================
-
 
     @Override public String toString() {
 	return name + ": " + score;

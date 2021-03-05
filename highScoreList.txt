@@ -38,5 +38,37 @@
   {
     "name": "Martin",
     "score": 0
+  },
+  {
+    "name": "Albin",
+    "score": 0
+  },
+  {
+    "name": "Anton",
+    "score": 0
+  },
+  {
+    "name": "hej",
+    "score": 0
+  },
+  {
+    "name": "adf",
+    "score": 0
+  },
+  {
+    "name": "Hej",
+    "score": 0
+  },
+  {
+    "name": "a",
+    "score": 0
+  },
+  {
+    "name": "tr",
+    "score": 0
+  },
+  {
+    "name": "Test",
+    "score": 0
   }
 ]

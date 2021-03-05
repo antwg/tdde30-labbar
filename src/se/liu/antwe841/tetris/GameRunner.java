@@ -29,7 +29,7 @@ public class GameRunner {
 
     private void saveHighscoreList(GameRunner gameRunner){
         try {
-            highscoreList.saveHighscoreList();
+            highscoreList.saveToJson();
         }
         catch (FileNotFoundException e) {
             if (JOptionPane.showConfirmDialog(null, "Failed to write to highscorelist, try again?", "", JOptionPane.YES_NO_OPTION) ==

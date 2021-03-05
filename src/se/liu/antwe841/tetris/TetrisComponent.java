@@ -44,7 +44,7 @@ public class TetrisComponent extends JComponent implements BoardListener{
 	}
     }
 
-    public final EnumMap<SquareType, Color> createColorMap(){
+    private EnumMap<SquareType, Color> createColorMap(){
 	EnumMap<SquareType, Color> map = new EnumMap<>(SquareType.class);
 
 	map.put(SquareType.EMPTY, Color.WHITE);
