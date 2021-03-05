@@ -30,10 +30,12 @@ public class BoardTester {
 
 
     public void runGame(BoardTester boardTester) {
+        // Set up game
 	TetrisViewer tetrisViewer = new TetrisViewer(boardTester);
 	board.addBoardListener(tetrisViewer.getTetrisComponent());
 	board.addBoardListener(tetrisViewer.getScoreComponent());
 
+	//Show start image
 	tetrisViewer.setStartIMG();
 	tetrisViewer.show();
 	try {
@@ -41,8 +43,9 @@ public class BoardTester {
 	} catch (InterruptedException e) {
 	    e.printStackTrace();
 	}
-	tetrisViewer.setBoard();
 
+	// Run game
+	tetrisViewer.setBoard();
 
 	final Action doOneStep = new AbstractAction()
 	{

@@ -1,10 +1,30 @@
 [
   {
+    "name": "Anton",
+    "score": 1000
+  },
+  {
     "name": "Ingo",
+    "score": 500
+  },
+  {
+    "name": "Joy",
     "score": 100
   },
   {
-    "name": "Anton",
-    "score": 1000
+    "name": "Disa",
+    "score": 0
+  },
+  {
+    "name": "Rasmus",
+    "score": 0
+  },
+  {
+    "name": "Samuel",
+    "score": 0
+  },
+  {
+    "name": "Ida",
+    "score": 0
   }
 ]

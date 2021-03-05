@@ -8,14 +8,14 @@ public class TetrisComponent extends JComponent implements BoardListener{
     private Board board;
     private EnumMap<SquareType, Color> squareColors;
     private final static int SQUARE_SIZE = 30;
-    private final static int MARGIN = 5;
+    private final static int SPACE = 5;
     private final  int componentWidth;
     private final  int componentHeight;
 
     public TetrisComponent(final Board board) {
 	this.board = board;
-	this.componentWidth = board.getWidth() * (SQUARE_SIZE + MARGIN);
-	this.componentHeight = board.getHeight() * (SQUARE_SIZE + MARGIN);
+	this.componentWidth = board.getWidth() * (SQUARE_SIZE + SPACE);
+	this.componentHeight = board.getHeight() * (SQUARE_SIZE + SPACE);
 	this.squareColors = createColorMap();
     }
 
@@ -39,7 +39,7 @@ public class TetrisComponent extends JComponent implements BoardListener{
 	    for (int row = 0; row < board.getHeight(); row++) {
 		SquareType squareType = board.getSquareAt(col, row);
 		g2d.setColor(squareColors.get(squareType));
-		g2d.fillRect(col * (SQUARE_SIZE + MARGIN), row * (SQUARE_SIZE + MARGIN), SQUARE_SIZE, SQUARE_SIZE);
+		g2d.fillRect(col * (SQUARE_SIZE + SPACE), row * (SQUARE_SIZE + SPACE), SQUARE_SIZE, SQUARE_SIZE);
 	    }
 	}
     }

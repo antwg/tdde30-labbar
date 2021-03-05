@@ -3,6 +3,7 @@ package se.liu.antwe841.tetris;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 public class TetrisViewer {
@@ -13,6 +14,7 @@ public class TetrisViewer {
     private StartImageShower startImage = new StartImageShower();
     private ScoreComponent scoreComponent;
     private GameRunner gameRunner;
+    private HighscoreList highscoreList;
 
     // Constructor
     public TetrisViewer(BoardTester boardTester) {
@@ -21,6 +23,7 @@ public class TetrisViewer {
 	this.menuBar = new JMenuBar();
 	this.scoreComponent = new ScoreComponent(board);
 	this.gameRunner = boardTester.getGameRunner();
+	this.highscoreList = gameRunner.getHighscoreList();
     }
 
     // ================================================ Getters ============================================================================
@@ -77,12 +80,27 @@ public class TetrisViewer {
 	makeKeyStrokeActions(frame.getRootPane());
     }
 
-    private void saveScore(){
+    private void saveScore() {
 	String name = JOptionPane.showInputDialog("Name");
-	Highscore highscore = new Highscore(name, board.getTotalScore());
-	gameRunner.getHighscoreList().addScore(highscore);
-	List<Highscore> scores = gameRunner.getHighscoreList().getScores();
-	scores.sort(new ScoreComparator());
+	if (name.isEmpty()){
+	    saveScore();
+	}
+	else {
+	    try {
+		highscoreList.addScore(new Highscore(name, board.getTotalScore()));
+		JOptionPane.showMessageDialog(null, highscoreList.getScores().toString());
+	    }
+	    catch (FileNotFoundException e) {
+		if (JOptionPane.showConfirmDialog(null, "Failed to write to highscorelist, try again?", "", JOptionPane.YES_NO_OPTION) ==
+		    JOptionPane.YES_OPTION) {
+		    saveScore();
+		} else {
+		    e.printStackTrace();
+		}
+	    }
+	    List<Highscore> scores = highscoreList.getScores();
+	    scores.sort(new ScoreComparator());
+	}
     }
 
     private void makeKeyStrokeActions(JComponent pane) {
@@ -97,7 +115,6 @@ public class TetrisViewer {
 	act.put("moveLeft", new MoveAction(Direction.LEFT));
 	act.put("moveRight", new MoveAction(Direction.RIGHT));
 	act.put("down", new MoveAction(Direction.DOWN));
-
 	act.put("rotateLeft", new RotateAction(Direction.LEFT));
 	act.put("rotateRight", new RotateAction(Direction.RIGHT));
     }
@@ -105,6 +122,7 @@ public class TetrisViewer {
     // ============================================= Private classes =======================================================================
 
 
+    // Handles movement of falling
     private class MoveAction extends AbstractAction {
 	private final Direction moveCommand;
 
@@ -114,6 +132,7 @@ public class TetrisViewer {
 
 	@Override public void actionPerformed(final ActionEvent e) {
 	    board.move(moveCommand);
+	    // Collision handling
 	    if (board.hasCollision(board.getFalling())) {
 		if (moveCommand.equals(Direction.LEFT)) {
 		    board.move(Direction.RIGHT);
@@ -128,6 +147,9 @@ public class TetrisViewer {
 	}
     }
 
+    //--------------------------------------------------------------------------------------------------------------------------------------
+
+    // Handles rotation of falling
     private class RotateAction extends AbstractAction {
 	private final Direction rotateCommand;
 
@@ -140,10 +162,12 @@ public class TetrisViewer {
 	}
     }
 
+    //--------------------------------------------------------------------------------------------------------------------------------------
 
+
+    // Handles the Menu buttons
     private class MenuAction extends AbstractAction {
 	private final MenuChoice choice;
-	private final static String QUIT_MESSAGE = "Are you sure you want to quit?";
 
 	private MenuAction(final MenuChoice action) {
 	    this.choice = action;
@@ -152,22 +176,20 @@ public class TetrisViewer {
 	@Override public void actionPerformed(final ActionEvent e) {
 	    switch (choice) {
 		case QUIT:
-		    if (JOptionPane.showConfirmDialog(null, QUIT_MESSAGE, "",
+		    String quitMessage = "Are you sure you want to quit?";
+		    if (JOptionPane.showConfirmDialog(null, quitMessage, "",
 						      JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 			saveScore();
-			JOptionPane.showMessageDialog(null, gameRunner.getHighscoreList().getScores().toString());
-			gameRunner.getHighscoreList().saveHighScoreList();
 			System.exit(0);
 		    }
 		    break;
 		case RESTART:
 		    saveScore();
 		    frame.dispose();
-		    JOptionPane.showMessageDialog(null, gameRunner.getHighscoreList().getScores().toString());
 		    gameRunner.newGame(gameRunner);
 		    break;
 		default:
-		    System.out.println("default");
+		    System.out.println("default in MenuAction");
 	    }
 	}
     }

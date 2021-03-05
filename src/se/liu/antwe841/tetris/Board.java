@@ -6,24 +6,18 @@ import java.util.Map;
 import java.util.Random;
 
 public class Board {
-    private int width;
-    private int height;
-    private int fallingX;
-    private int fallingY;
+    private int width, height, fallingX, fallingY, totalScore = 0;
     private boolean gameOver = false;
     private SquareType[][] squares;
     private Poly falling;
     private TetrominoMaker maker;
     private List<BoardListener> boardListeners;
-    private int totalScore = 0;
 
     private final int fallingStartX;
-    private final static int FALLING_START_Y = 0;
-    private static final int MARGIN = 2;
-    private static final int DOUBLE_MARGIN = 4;
     private final static Random RND = new Random();
-    private final static int ONE_ROW = 1, TWO_ROW = 2, THREE_ROW = 3, FOUR_ROW = 4, ONE_ROW_POINTS = 100, TWO_ROW_POINTS = 300,
-    			     THREE_ROW_POINTS = 500, FOUR_ROW_POINTS = 800;
+    private final static int FALLING_START_Y = 0, MARGIN = 2, DOUBLE_MARGIN = 4;
+    private final static int ONE_ROW = 1, TWO_ROW = 2, THREE_ROW = 3, FOUR_ROW = 4;
+    private final static int ONE_ROW_POINTS = 100, TWO_ROW_POINTS = 300, THREE_ROW_POINTS = 500, FOUR_ROW_POINTS = 800;
     private final static Map<Integer, Integer> POINT_MAP = Map.of(ONE_ROW, ONE_ROW_POINTS, TWO_ROW, TWO_ROW_POINTS, THREE_ROW,
 								  THREE_ROW_POINTS, FOUR_ROW, FOUR_ROW_POINTS);
 
@@ -69,17 +63,8 @@ public class Board {
 
     // ============================================= Public methods ========================================================================
 
-    // 					      --- Board update methods ---
 
-    public void tick(){
-	if (!gameOver) {
-	    setFalling();
-	    moveFalling();
-	    fallingHitBottom();
-	    removeFull();
-	    notifyListeners();
-	}
-    }
+    // 					      --- Falling methods ---
 
     public void rotate(Direction dir){
 	if (falling != null) {
@@ -113,7 +98,27 @@ public class Board {
 	notifyListeners();
     }
 
-    // 					      --- Board state methods ---
+    public boolean hasCollision(Poly pol){
+	if (pol != null) {
+	    for (int x = 0; x < pol.getWidth(); x++) {
+		for (int y = 0; y < pol.getHeight(); y++) {
+		    if (pol.getSquare(x, y) != SquareType.EMPTY) {
+			if (squares[fallingY + y + MARGIN][fallingX + x + MARGIN] != SquareType.EMPTY) {
+			    return true; } } } } }
+	return false;
+    }
+
+    // 					      --- Board methods ---
+
+    public void tick(){
+	if (!gameOver) {
+	    setFalling();
+	    moveFalling();
+	    fallingHitBottom();
+	    removeFull();
+	    notifyListeners();
+	}
+    }
 
     public SquareType getSquareAt(int x, int y) {
         if (falling != null && isInFalling(x + MARGIN, y + MARGIN)){
@@ -129,28 +134,20 @@ public class Board {
         else { return squares[y + MARGIN][x + MARGIN]; }
     }
 
-    public boolean hasCollision(Poly pol){
-	if (pol != null) {
-	    for (int x = 0; x < pol.getWidth(); x++) {
-		for (int y = 0; y < pol.getHeight(); y++) {
-		    if (pol.getSquare(x, y) != SquareType.EMPTY) {
-			if (squares[fallingY + y + MARGIN][fallingX + x + MARGIN] != SquareType.EMPTY) {
-			    return true; } } } } }
-	return false;
-    }
-
-    // 					      --- Others ---
-
     public void replaceWithRandomBoard(Board board) {
 	SquareType[] blockArray = SquareType.values();
 	for (int col = MARGIN; col < width + MARGIN; col++) {
 	    for (int row = MARGIN; row < height + MARGIN; row++) {
 		SquareType currentRNDBlock = blockArray[RND.nextInt(blockArray.length)];
-	        squares[row][col] = currentRNDBlock;
+		squares[row][col] = currentRNDBlock;
 	    }
 	}
 	notifyListeners();
     }
+
+    // 					      --- Others ---
+
+
 
     public void addBoardListener(BoardListener bl){
 	boardListeners.add(bl);

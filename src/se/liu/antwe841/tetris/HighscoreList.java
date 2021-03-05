@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -29,32 +30,26 @@ public class HighscoreList {
 
     // ================================================  Public Methods ====================================================================
 
-    public void addScore(Highscore highscore){
+    public void addScore(Highscore highscore) throws FileNotFoundException {
         scores.add(highscore);
         saveHighScoreList();
     }
 
-    public void saveHighScoreList(){
+    public void saveHighScoreList() throws FileNotFoundException {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String listAsJson = gson.toJson(getScores());
 
         try (PrintWriter printWriter = new PrintWriter(fileName)) {
             printWriter.write(listAsJson);
         }
-        catch (IOException e) {
-            System.out.println("Error " +  " " + e);
-        }
     }
 
-    public void readFromJson(){
+    public void readFromJson() throws IOException, FileNotFoundException {
         try (FileReader fileReader = new FileReader(fileName)) {
-            Type listType = new TypeToken<ArrayList<Highscore>>(){}.getType();
+            Type listType = new TypeToken<ArrayList<Highscore>>() {}.getType();
             List<Highscore> list = new Gson().fromJson(fileReader, listType);
 
             this.scores = list;
-        }
-        catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }
