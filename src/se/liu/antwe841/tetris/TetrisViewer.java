@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.FileNotFoundException;
-import java.util.List;
 
 public class TetrisViewer {
     private Board board;
@@ -98,8 +97,6 @@ public class TetrisViewer {
 		    e.printStackTrace();
 		}
 	    }
-	    List<Highscore> scores = highscoreList.getScores();
-	    scores.sort(new ScoreComparator());
 	}
     }
 

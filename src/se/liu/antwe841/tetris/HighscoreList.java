@@ -32,6 +32,8 @@ public class HighscoreList {
 
     public void addScore(Highscore highscore) throws FileNotFoundException {
         scores.add(highscore);
+        List<Highscore> unsortedScores = this.scores;
+        unsortedScores.sort(new ScoreComparator());
         saveHighscoreList();
     }
 
