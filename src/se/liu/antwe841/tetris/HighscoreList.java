@@ -57,7 +57,7 @@ public class HighscoreList {
 
     @Override public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        int numberOfWantedScores = 10;
+        final int numberOfWantedScores = 10;
         for (int i = 0; i < numberOfWantedScores; i++) {
             stringBuilder.append(scores.get(i));
             stringBuilder.append("\n");
