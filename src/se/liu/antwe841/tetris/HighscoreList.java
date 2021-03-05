@@ -32,10 +32,10 @@ public class HighscoreList {
 
     public void addScore(Highscore highscore) throws FileNotFoundException {
         scores.add(highscore);
-        saveHighScoreList();
+        saveHighscoreList();
     }
 
-    public void saveHighScoreList() throws FileNotFoundException {
+    public void saveHighscoreList() throws FileNotFoundException {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String listAsJson = gson.toJson(getScores());
 
@@ -47,9 +47,9 @@ public class HighscoreList {
     public void readFromJson() throws IOException, FileNotFoundException {
         try (FileReader fileReader = new FileReader(fileName)) {
             Type listType = new TypeToken<ArrayList<Highscore>>() {}.getType();
-            List<Highscore> list = new Gson().fromJson(fileReader, listType);
+            List<Highscore> listOfHighscores = new Gson().fromJson(fileReader, listType);
 
-            this.scores = list;
+            this.scores = listOfHighscores;
         }
     }
 }

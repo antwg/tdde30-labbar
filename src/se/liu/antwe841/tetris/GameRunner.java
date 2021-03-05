@@ -27,7 +27,21 @@ public class GameRunner {
         boardTester.runGame(boardTester);
     }
 
-    private void readHighscoreList(GameRunner gameRunner) throws IOException, FileNotFoundException {
+    private void saveHighscoreList(GameRunner gameRunner){
+        try {
+            highscoreList.saveHighscoreList();
+        }
+        catch (FileNotFoundException e) {
+            if (JOptionPane.showConfirmDialog(null, "Failed to write to highscorelist, try again?", "", JOptionPane.YES_NO_OPTION) ==
+                JOptionPane.YES_OPTION) {
+                saveHighscoreList(gameRunner);
+            } else {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void readHighscoreList(GameRunner gameRunner) {
         try {
             gameRunner.highscoreList.readFromJson();
         }
@@ -39,13 +53,13 @@ public class GameRunner {
             }
             else {
                 gameRunner.highscoreList = new HighscoreList();
-                highscoreList.saveHighScoreList();
+                saveHighscoreList(gameRunner);
                 e.printStackTrace();
             }
         }
     }
 
-    public static void main(String[] args) throws IOException, FileNotFoundException {
+    public static void main(String[] args){
         GameRunner gameRunner = new GameRunner();
         gameRunner.newGame(gameRunner);
         gameRunner.readHighscoreList(gameRunner);

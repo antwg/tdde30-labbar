@@ -5,7 +5,7 @@ public class Highscore {
     private int score;
 
 
-    // Constructors
+    // Constructor
     public Highscore(final String name, final int score) {
 	this.name = name;
 	this.score = score;
