@@ -4,13 +4,15 @@ public class Highscore {
     private String name;
     private int score;
 
+
+    // Constructors
     public Highscore(final String name, final int score) {
 	this.name = name;
 	this.score = score;
     }
 
-    public Highscore(){
-    }
+    // ============================================= Getters ===============================================================================
+
 
     public String getName() {
 	return name;
@@ -20,6 +22,9 @@ public class Highscore {
 	return score;
     }
 
+    // ============================================= Setters ===============================================================================
+
+
     public void setName(final String name) {
 	this.name = name;
     }
@@ -27,6 +32,9 @@ public class Highscore {
     public void setScore(final int score) {
 	this.score = score;
     }
+
+    // ============================================= Methods ===============================================================================
+
 
     @Override public String toString() {
 	return name + ": " + score;

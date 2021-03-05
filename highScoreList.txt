@@ -17,14 +17,14 @@
   },
   {
     "name": "Rasmus",
-    "score": 0
+    "score": 200
   },
   {
     "name": "Samuel",
-    "score": 0
+    "score": 300
   },
   {
     "name": "Ida",
-    "score": 0
+    "score": 100
   }
 ]
