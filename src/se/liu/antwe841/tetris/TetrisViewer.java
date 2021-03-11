@@ -12,17 +12,16 @@ public class TetrisViewer {
     private JFrame frame = new JFrame("Tetris");
     private StartImageShower startImage = new StartImageShower();
     private ScoreComponent scoreComponent;
-    private GameRunner gameRunner;
     private HighscoreList highscoreList;
 
     // Constructor
-    public TetrisViewer(BoardTester boardTester) {
-	this.board = boardTester.getBoard();
+    public TetrisViewer(Board board, HighscoreList highscoreList) {
+	this.board = board;
+	this.highscoreList = highscoreList;
 	this.tetrisComponent = new TetrisComponent(board);
 	this.menuBar = new JMenuBar();
 	this.scoreComponent = new ScoreComponent(board);
-	this.gameRunner = boardTester.getGameRunner();
-	this.highscoreList = gameRunner.getHighscoreList();
+
     }
 
     // ================================================ Getters ============================================================================
@@ -149,7 +148,6 @@ public class TetrisViewer {
 
     //--------------------------------------------------------------------------------------------------------------------------------------
 
-
     // Handles the Menu buttons
     private class MenuAction extends AbstractAction {
 	private final MenuChoice choice;
@@ -171,7 +169,7 @@ public class TetrisViewer {
 		case RESTART:
 		    saveScore();
 		    frame.dispose();
-		    gameRunner.newGame(gameRunner);
+		    GameManager gm = new GameManager(highscoreList);
 		    break;
 		default:
 		    System.out.println("default in MenuAction");

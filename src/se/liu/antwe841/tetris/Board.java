@@ -15,7 +15,7 @@ public class Board {
 
     private final int fallingStartX;
     private final static Random RND = new Random();
-    private final static int FALLING_START_Y = 0, MARGIN = 2, DOUBLE_MARGIN = 4;
+    private final static int FALLING_START_Y = 0, MARGIN = 2, DOUBLE_MARGIN = 2 * MARGIN;
     private final static int ONE_ROW = 1, TWO_ROW = 2, THREE_ROW = 3, FOUR_ROW = 4;
     private final static int ONE_ROW_POINTS = 100, TWO_ROW_POINTS = 300, THREE_ROW_POINTS = 500, FOUR_ROW_POINTS = 800;
     private final static Map<Integer, Integer> POINT_MAP = Map.of(ONE_ROW, ONE_ROW_POINTS, TWO_ROW, TWO_ROW_POINTS, THREE_ROW,
@@ -33,21 +33,22 @@ public class Board {
 	this.fallingY = FALLING_START_Y;
 	this.boardListeners = new ArrayList<>();
 
-
 	//Set correct SquareTypes for empty board
+
 	for (int col = 0; col < width + DOUBLE_MARGIN; col++) {
 	    for (int row = 0; row < height + DOUBLE_MARGIN; row++) {
-		squares[row][col] = SquareType.OUTSIDE;
-	    }
-	}
-	for (int col = MARGIN; col < width + MARGIN; col++) {
-	    for (int row = MARGIN; row < height + MARGIN; row++) {
-		squares[row][col] = SquareType.EMPTY;
+	        if (col >= MARGIN && col < width + MARGIN && row >= MARGIN && row < height + MARGIN) {
+		    squares[row][col] = SquareType.EMPTY;
+		}
+	        else {
+		    squares[row][col] = SquareType.OUTSIDE;
+		}
 	    }
 	}
     }
 
-    // ============================================= Getters ===============================================================================
+
+    // ============================================= G/Setters ===============================================================================
 
     public Poly getFalling() {return falling;}
 
@@ -68,7 +69,7 @@ public class Board {
 
     public void rotate(Direction dir){
 	if (falling != null) {
-	    Poly copy = new Poly(new SquareType[height][width]);
+	    Poly copy = falling;
 
 	    if (dir == Direction.RIGHT) {
 		copy = falling.rotateRight();
@@ -109,15 +110,6 @@ public class Board {
 	notifyListeners();
     }
 
-    public boolean hasCollision(Poly pol){
-	if (pol != null) {
-	    for (int x = 0; x < pol.getWidth(); x++) {
-		for (int y = 0; y < pol.getHeight(); y++) {
-		    if (pol.getSquare(x, y) != SquareType.EMPTY) {
-			if (squares[fallingY + y + MARGIN][fallingX + x + MARGIN] != SquareType.EMPTY) {
-			    return true; } } } } }
-	return false;
-    }
 
     // 					      --- Board methods ---
 
@@ -157,7 +149,6 @@ public class Board {
     }
 
     // 					      --- Others ---
-
 
 
     public void addBoardListener(BoardListener bl){
@@ -228,7 +219,6 @@ public class Board {
 	if (falling != null){
 	    fallingY += 1;
 	}
-	notifyListeners();
     }
 
     private boolean isInFalling(int x, int y){
@@ -252,5 +242,15 @@ public class Board {
     private void notifyListeners(){
 	for (BoardListener bl: boardListeners) {
 		bl.boardChanged(); }
+    }
+
+    private boolean hasCollision(Poly pol){
+	if (pol != null) {
+	    for (int x = 0; x < pol.getWidth(); x++) {
+		for (int y = 0; y < pol.getHeight(); y++) {
+		    if (pol.getSquare(x, y) != SquareType.EMPTY) {
+			if (squares[fallingY + y + MARGIN][fallingX + x + MARGIN] != SquareType.EMPTY) {
+			    return true; } } } } }
+	return false;
     }
 }

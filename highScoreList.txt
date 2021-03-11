@@ -1,74 +1,14 @@
 [
   {
     "name": "Anton",
-    "score": 2200
-  },
-  {
-    "name": "Anton",
     "score": 1000
-  },
-  {
-    "name": "Ingo",
-    "score": 500
-  },
-  {
-    "name": "Samuel",
-    "score": 300
-  },
-  {
-    "name": "Rasmus",
-    "score": 200
-  },
-  {
-    "name": "Joy",
-    "score": 100
-  },
-  {
-    "name": "Ida",
-    "score": 100
-  },
-  {
-    "name": "Adam",
-    "score": 100
   },
   {
     "name": "Disa",
     "score": 0
   },
   {
-    "name": "Martin",
-    "score": 0
-  },
-  {
-    "name": "Albin",
-    "score": 0
-  },
-  {
-    "name": "Anton",
-    "score": 0
-  },
-  {
-    "name": "hej",
-    "score": 0
-  },
-  {
-    "name": "adf",
-    "score": 0
-  },
-  {
-    "name": "Hej",
-    "score": 0
-  },
-  {
-    "name": "a",
-    "score": 0
-  },
-  {
-    "name": "tr",
-    "score": 0
-  },
-  {
-    "name": "Test",
+    "name": "Ingo",
     "score": 0
   }
 ]
