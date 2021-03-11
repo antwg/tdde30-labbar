@@ -5,7 +5,8 @@ import java.awt.event.ActionEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class GameManager {
+public class GameRunner
+{
     private HighscoreList highscoreList;
     private Board board;
     private final static int SLEEP_DELAY = 1500;
@@ -13,7 +14,7 @@ public class GameManager {
 
 
     // Constructor
-    public GameManager(HighscoreList highscoreList) {
+    public GameRunner(HighscoreList highscoreList) {
         this.highscoreList = highscoreList;
         this.board = new Board(10, 20);
         newGame();
@@ -97,7 +98,7 @@ public class GameManager {
 
     public static void main(String[] args) {
         HighscoreList highscoreList = new HighscoreList();
-        GameManager gameManager = new GameManager(highscoreList);
-        gameManager.readHighscoreList();
+        GameRunner gameRunner = new GameRunner(highscoreList);
+        gameRunner.readHighscoreList();
     }
 }

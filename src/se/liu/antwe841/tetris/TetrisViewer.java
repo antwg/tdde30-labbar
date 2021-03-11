@@ -169,7 +169,7 @@ public class TetrisViewer {
 		case RESTART:
 		    saveScore();
 		    frame.dispose();
-		    GameManager gm = new GameManager(highscoreList);
+		    GameRunner gameRunner = new GameRunner(highscoreList);
 		    break;
 		default:
 		    System.out.println("default in MenuAction");

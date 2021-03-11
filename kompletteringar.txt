@@ -1,0 +1,58 @@
+Komplettering 1
+---------------------------------------------------------------------------------------------------------
+
+"Sätt hellre DOUBLE_MARGIN till MARGIN * 2, då slipper du ändra på två stället om du ändrar MARGIN."
+
+	Gjorde exakt det. (Board klassen)
+
+---------------------------------------------------------------------------------------------------------
+
+"For-looparna i konstruktorn till Board bör gå att slå ihop."
+
+	Jag satte ihop for-looparna till en for-loop som sätter allt innanför MARGINs till SquareType
+	EMPTY och resten till OUTSIDE (Board klassen)
+
+---------------------------------------------------------------------------------------------------------
+
+"I rotate() kan du sätta copy = falling istället för att skapa en ny Poly."
+
+	Gjorde exakt det. (Board klassen)
+
+---------------------------------------------------------------------------------------------------------
+
+"Hjälp-metoderna i tick() behöver inte anropa notifyListeners() eftersom tick() redan gör detta."
+
+	Tog bort dem onödiga anropen i board (Board klassen)
+
+---------------------------------------------------------------------------------------------------------
+
+"hasCollision() kan vara privat då den endast ska användas av Board-objekt."
+
+	Satte den till privat och flyttade den til de andra privata metoderna (Board klassen)
+
+---------------------------------------------------------------------------------------------------------
+
+"toString() i HighscoreList kollar inte om i är större än antalet element i listan."
+
+	Ändrade så att den väljer den minsta av antingen längden av HighscoreList eller 10.
+	(HighscoreList klassen)
+
+---------------------------------------------------------------------------------------------------------
+
+"Både TetrisViewer och GameRunner har en HighscoreList, jag rekommenderar att endast GameRunner har det."
+
+	Vet inte riktigt hur du menade att jag skulle fixa det men nu skapas listan en gång i main
+	metoden i GameRunner och men används fortfarande av båda klasserna.
+
+---------------------------------------------------------------------------------------------------------
+
+"Flytta gärna runGame() och fälten som behövs från BoardTester till GameRunner."
+
+	Gjorde precis det.
+
+---------------------------------------------------------------------------------------------------------
+
+"newGame() i GameRunner bör inte behöva ta in en GameRunner eftersom det är en metod för objekt av den klassen."
+
+	Tog bort argumentet och skapar ett nytt GameRunner objekt som får en ny Board men behåller
+	HighscoreListan.
